@@ -11,7 +11,7 @@ The purpose of this article is to provide the setup instructions for the recorde
 In the end, you will be ready to create your own data pipelines in Azure Data Factory. 
 
 ## Video
-Link: [Youtube - Dear Azure - Azure Data Factory best practices](https://www.youtube.com/watch?v=9Q8aumWk9Ww)
+Link: [Youtube - Dear Azure - Azure Data Factory best practices | Create data pipeline using Mapping Data flow ](https://www.youtube.com/watch?v=9Q8aumWk9Ww)
 
 ## Setup
 ### Pre-req
