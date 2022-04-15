@@ -1,0 +1,80 @@
+# Pipeline Name: ADF-Demo-Prd-Pipeline
+# YAML File: azure-adf-deploy-prd-pipeline.yml
+# Description: Deploy to ADF-Demo-Prd pipeline.
+
+resources:
+  pipelines:
+    - pipeline: 'ADF-Build-Deploy-Dev-resource'
+      project: 'Demo'
+      source: 'ADF-Demo-Build-Deploy-Dev-Pipeline'
+      trigger:
+        stages:
+          - Deploy_Dev_Stage
+        tags:
+          - Production
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+    - group: Adf-config
+    - name: WorkspaceArmTemplateDirectory
+      value: $(PIPELINE.WORKSPACE)/ADF-Build-Dev-resource/$(CommonPublishArmTemplateName)
+
+stages:
+- stage: Deploy_Prd_Stage
+  displayName: Deploy Prd Stage
+  jobs:
+    - deployment: Deploy_Prd
+      displayName: 'Deployment - Prd'
+      environment: PRD
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - download: 'ADF-Build-Dev-resource'
+              - script: dir
+                displayName: List files in Workspace
+                workingDirectory: '$(WorkspaceArmTemplateDirectory)'
+              - task: AzureResourceManagerTemplateDeployment@3
+                displayName: 'Deploying to Prd RG task'
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: '$(PrdDeployDevOpsConnection)'
+                  subscriptionId: '$(PrdSubscriptionId)'
+                  action: 'Create Or Update Resource Group'
+                  resourceGroupName: '$(PrdAdfRgName)'
+                  location: '$(PrdAdfLocation)'
+                  templateLocation: 'Linked artifact'
+                  csmFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateForFactory.json'
+                  csmParametersFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateParametersForFactory.json'
+                  overrideParameters: '-factoryName "$(PrdAdfName)" -LS_SalesDatabase_connectionString "$(PrdSalesDbConnectionString)" -LS_DataLake_properties_typeProperties_url "$(PrdDataLakeUrl)" -LS_KeyVault_properties_typeProperties_baseUrl "$(PrdKeyVaultBaseUrl)"'
+                  deploymentMode: 'Incremental'
+
+              # - task: DownloadPipelineArtifact@2
+              #   displayName: Download Build Artifacts from Dev Build
+              #   inputs:
+              #     source: 'specific'
+              #     project: 'Demo'
+              #     pipeline: 6
+              #     artifactName: '$(CommonPublishArmTemplateName)'
+              #     downloadPath: '$(WorkspaceArmTemplateDirectory)'
+              #
+              # - script: dir
+              #   displayName: List files in Workspace
+              #   workingDirectory: '$(WorkspaceArmTemplateDirectory)'
+              #
+              # - task: AzureResourceManagerTemplateDeployment@3
+              #   displayName: 'Deploying to Prd RG task'
+              #   inputs:
+              #     deploymentScope: 'Resource Group'
+              #     azureResourceManagerConnection: '$(PrdDeployDevOpsConnection)'
+              #     subscriptionId: '$(PrdSubscriptionId)'
+              #     action: 'Create Or Update Resource Group'
+              #     resourceGroupName: '$(PrdAdfRgName)'
+              #     location: '$(PrdAdfLocation)'
+              #     templateLocation: 'Linked artifact'
+              #     csmFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateForFactory.json'
+              #     csmParametersFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateParametersForFactory.json'
+              #     overrideParameters: '-factoryName "$(PrdAdfName)" -LS_SalesDatabase_connectionString "$(PrdSalesDbConnectionString)" -LS_DataLake_properties_typeProperties_url "$(PrdDataLakeUrl)" -LS_KeyVault_properties_typeProperties_baseUrl "$(PrdKeyVaultBaseUrl)"'
+              #     deploymentMode: 'Incremental'

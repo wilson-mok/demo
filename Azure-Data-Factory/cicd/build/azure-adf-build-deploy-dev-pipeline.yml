@@ -1,0 +1,106 @@
+# Pipeline Name: ADF-Demo-Build-Deploy-Dev-Pipeline
+# YAML File: azure-adf-build-deploy-dev-pipeline.yml
+# Description: Build ADF Dev and Deploy to Dev ADF live mode.
+
+trigger:
+ - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+    - group: Adf-config
+
+    - name: BuildAdfResourceId
+      value: /subscriptions/$(DevSubscriptionId)/resourceGroups/$(DevAdfRgName)/providers/Microsoft.DataFactory/factories/$(DevAdfName)
+      
+    - name: WorkspaceArmTemplateDirectory
+      value: $(Pipeline.Workspace)/$(CommonPublishArmTemplateName)
+
+stages:
+- stage: Build_Adf_Arm_Stage
+  
+  jobs:
+    - job: Build_Adf_Arm_Template
+      displayName: 'ADF - ARM template'
+      workspace:
+        clean: all
+      steps:
+      - checkout: self
+        displayName: 'Checkout ADF repo'
+        clean: true
+        path: $(DevAdfName)
+      
+      # Installs Node and the npm packages saved in your package.json file in the build
+      - task: NodeTool@0
+        displayName: 'Install Node.js'
+        inputs:
+          versionSpec: '10.x'
+      
+      - task: Npm@1
+        displayName: 'Install npm package'
+        inputs:
+          command: 'install'
+          workingDir: '$(Build.Repository.LocalPath)/build/'
+          verbose: true
+
+      # ADF - Validates all on adf-code.
+      - task: Npm@1
+        displayName: 'Validate Source code'
+        inputs:
+          command: 'custom'
+          workingDir: '$(Build.Repository.LocalPath)/build/'
+          customCommand: 'run build validate $(Build.Repository.LocalPath)/adf-code $(BuildAdfResourceId)'
+      
+      # ADF - Generate ARM template
+      - task: Npm@1
+        displayName: 'Generate ARM template'
+        inputs:
+          command: 'custom'
+          workingDir: '$(Build.Repository.LocalPath)/build/'
+          customCommand: 'run build export $(Build.Repository.LocalPath)/adf-code $(BuildAdfResourceId) "$(CommonPublishArmTemplateName)"'
+
+      # Publish the artifact
+      - task: PublishPipelineArtifact@1
+        displayName: 'Publish ARM tempate'
+        inputs:
+          targetPath: '$(Build.Repository.LocalPath)/build/$(CommonPublishArmTemplateName)'
+          artifact: '$(CommonPublishArmTemplateName)'
+          publishLocation: 'pipeline'
+
+- stage: Deploy_Dev_Stage
+  displayName: Deploy Dev Stage
+  dependsOn: Build_ADF_ARM_Stage
+  jobs:
+    - deployment: Deploy_Dev
+      displayName: 'Deployment - DEV'
+      environment: DEV
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: DownloadPipelineArtifact@2
+                displayName: Download Build Artifacts - ADF ARM templates
+                inputs:
+                  artifactName: '$(CommonPublishArmTemplateName)'
+                  targetPath: '$(WorkspaceArmTemplateDirectory)'
+              - script: dir
+                displayName: List files in Workspace
+                workingDirectory: '$(WorkspaceArmTemplateDirectory)'
+
+              - task: AzureResourceManagerTemplateDeployment@3
+                displayName: 'Deploying to Dev RG task'
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: '$(DevDeployDevOpsConnection)'
+                  subscriptionId: '$(DevSubscriptionId)'
+                  action: 'Create Or Update Resource Group'
+                  resourceGroupName: '$(DevAdfRgName)'
+                  location: '$(DevAdfLocation)'
+                  templateLocation: 'Linked artifact'
+                  csmFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateForFactory.json'
+                  csmParametersFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateParametersForFactory.json'
+                  overrideParameters: '-factoryName "$(DevAdfName)" -LS_SalesDatabase_connectionString "$(DevSalesDbConnectionString)" -LS_DataLake_properties_typeProperties_url "$(DevDataLakeUrl)" -LS_KeyVault_properties_typeProperties_baseUrl "$(DevKeyVaultBaseUrl)"'
+                  deploymentMode: 'Incremental'
+
+

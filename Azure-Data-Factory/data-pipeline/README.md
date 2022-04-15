@@ -15,9 +15,10 @@ Link: [Youtube - Dear Azure - Azure Data Factory best practices | Create data pi
 
 ## Setup
 ### Pre-req
-In this demo, we are using 3 Azure resources: 
+In this demo, we are using 4 Azure resources: 
 1. Azure Data Factory (ADF)
 1. Azure SQL Database
+1. Azure Key Vault
 1. Azure Storage with hierachical namespace enabled (Data Lake gen 2)  
 
 ### Integration
