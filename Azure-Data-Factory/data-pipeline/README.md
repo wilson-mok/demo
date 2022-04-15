@@ -22,6 +22,14 @@ In this demo, we are using 3 Azure resources:
 
 ### Integration
 ![Service integration](./images/ADF-data-pipeline-integration.png)
+| Azure Service | Permission |
+| --- | --- |
+| Azure SQL | SQL User: dataUser, DB Role: db_owner |
+| Key Vault | Member: ADF MSI, IAM Role: Key Vault Secret User |
+| Data Lake | Member: ADF MSI, IAM Role: Storage Blob Data Contributor |
+| Weather Data (HTTP) | anonymous - Generated SAS token |
+
+Note: Key Vault was not used in the demo. This was added for the CI/CD demo.
 
 
 ## Code and scripts
@@ -34,4 +42,5 @@ In this demo, we are using 3 Azure resources:
 | sample-data/Sample.SalesInvoiceLines.Table.sql | This script contains the insert statements for SalesInvoiceLines table. Please run the SalesInvoice script first. |
 | sample-data/weather.json | This is the sample weather data I created. I created a 'weather-data' container in the data lake and generated a SAS token to emulate a file using HTTP endpoint. For security reason, please make sure you setup an expiry date. |
 | sql-queries/demo_queries.sql | This file contains the query I ran in the demo to show the result data in the database. |
+| Additional steps | Create a secret 'dpsqlserverdemo-dataUser' with the dataUser password in the Key Vault. |
 

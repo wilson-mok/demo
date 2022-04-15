@@ -1,0 +1,123 @@
+{
+	"name": "DS_SalesDB_SalesInvoices",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SalesDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "InvoiceID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CustomerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BillToCustomerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OrderID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DeliveryMethodID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ContactPersonID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AccountsPersonID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SalespersonPersonID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PackedByPersonID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "InvoiceDate",
+				"type": "date"
+			},
+			{
+				"name": "CustomerPurchaseOrderNumber",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsCreditNote",
+				"type": "bit"
+			},
+			{
+				"name": "CreditNoteReason",
+				"type": "ntext"
+			},
+			{
+				"name": "Comments",
+				"type": "ntext"
+			},
+			{
+				"name": "DeliveryInstructions",
+				"type": "ntext"
+			},
+			{
+				"name": "InternalComments",
+				"type": "ntext"
+			},
+			{
+				"name": "TotalDryItems",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TotalChillerItems",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DeliveryRun",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RunPosition",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ReturnedDeliveryData",
+				"type": "ntext"
+			},
+			{
+				"name": "LastEditedBy",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "LastEditedWhen",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": "SalesInvoices"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

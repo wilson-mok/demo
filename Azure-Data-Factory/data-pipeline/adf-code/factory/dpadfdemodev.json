@@ -1,0 +1,9 @@
+{
+	"name": "dpadfdemodev",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1b363c58-cc85-409b-806e-e6e539177566",
+		"tenantId": "63578c00-1382-4da4-9312-f96bc6e6d28c"
+	}
+}

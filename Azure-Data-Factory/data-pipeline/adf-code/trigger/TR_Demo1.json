@@ -1,0 +1,36 @@
+{
+	"name": "TR_Demo1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_Demo1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"copiedDate": "@formatDateTime(trigger().startTime, 'yyyy-dd-MM')"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-03-25T00:05:00",
+				"endTime": "2022-03-26T03:08:19",
+				"timeZone": "Mountain Standard Time",
+				"schedule": {
+					"minutes": [
+						5
+					],
+					"hours": [
+						0
+					]
+				}
+			}
+		}
+	}
+}

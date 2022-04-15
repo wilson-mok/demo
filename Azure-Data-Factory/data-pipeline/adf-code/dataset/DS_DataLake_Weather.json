@@ -1,0 +1,63 @@
+{
+	"name": "DS_DataLake_Weather",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "weather.parquet",
+				"folderPath": "WeatherService",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "guid",
+				"type": "UTF8"
+			},
+			{
+				"name": "date",
+				"type": "INT96"
+			},
+			{
+				"name": "temp_unit",
+				"type": "UTF8"
+			},
+			{
+				"name": "avg_temp",
+				"type": "INT32"
+			},
+			{
+				"name": "wind_unit",
+				"type": "UTF8"
+			},
+			{
+				"name": "wind_speed",
+				"type": "INT32"
+			},
+			{
+				"name": "clouds_all",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "rain_unit",
+				"type": "UTF8"
+			},
+			{
+				"name": "avg_rain_hr",
+				"type": "INT32"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

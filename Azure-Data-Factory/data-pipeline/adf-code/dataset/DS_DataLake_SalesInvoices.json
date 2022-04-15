@@ -1,0 +1,115 @@
+{
+	"name": "DS_DataLake_SalesInvoices",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Salesinvoices.parquet",
+				"folderPath": "SalesDB/Invoices",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "InvoiceID",
+				"type": "INT32"
+			},
+			{
+				"name": "CustomerID",
+				"type": "INT32"
+			},
+			{
+				"name": "BillToCustomerID",
+				"type": "INT32"
+			},
+			{
+				"name": "OrderID",
+				"type": "INT32"
+			},
+			{
+				"name": "DeliveryMethodID",
+				"type": "INT32"
+			},
+			{
+				"name": "ContactPersonID",
+				"type": "INT32"
+			},
+			{
+				"name": "AccountsPersonID",
+				"type": "INT32"
+			},
+			{
+				"name": "SalespersonPersonID",
+				"type": "INT32"
+			},
+			{
+				"name": "PackedByPersonID",
+				"type": "INT32"
+			},
+			{
+				"name": "InvoiceDate",
+				"type": "DATE"
+			},
+			{
+				"name": "CustomerPurchaseOrderNumber",
+				"type": "UTF8"
+			},
+			{
+				"name": "IsCreditNote",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "CreditNoteReason",
+				"type": "UTF8"
+			},
+			{
+				"name": "Comments",
+				"type": "UTF8"
+			},
+			{
+				"name": "DeliveryInstructions",
+				"type": "UTF8"
+			},
+			{
+				"name": "InternalComments",
+				"type": "UTF8"
+			},
+			{
+				"name": "TotalDryItems",
+				"type": "INT32"
+			},
+			{
+				"name": "TotalChillerItems",
+				"type": "INT32"
+			},
+			{
+				"name": "DeliveryRun",
+				"type": "UTF8"
+			},
+			{
+				"name": "RunPosition",
+				"type": "UTF8"
+			},
+			{
+				"name": "ReturnedDeliveryData",
+				"type": "UTF8"
+			},
+			{
+				"name": "LastEditedBy",
+				"type": "INT32"
+			},
+			{
+				"name": "LastEditedWhen",
+				"type": "INT96"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

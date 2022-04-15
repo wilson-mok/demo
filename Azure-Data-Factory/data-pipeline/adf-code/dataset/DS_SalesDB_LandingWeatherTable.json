@@ -1,0 +1,62 @@
+{
+	"name": "DS_SalesDB_LandingWeatherTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SalesDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "sourceId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "guid",
+				"type": "nvarchar"
+			},
+			{
+				"name": "weatherDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "tempUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "avgTemp",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "windUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "avgSpeed",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "hasCloud",
+				"type": "bit"
+			},
+			{
+				"name": "rainUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "avgPerHour",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "Landing",
+			"table": "Weather"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

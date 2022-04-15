@@ -1,0 +1,72 @@
+{
+	"name": "DS_HTTP_WeatherData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_WeatherService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"_id": {
+					"type": "string"
+				},
+				"guid": {
+					"type": "string"
+				},
+				"date": {
+					"type": "string"
+				},
+				"main": {
+					"type": "object",
+					"properties": {
+						"unit": {
+							"type": "string"
+						},
+						"temp": {
+							"type": "integer"
+						}
+					}
+				},
+				"wind": {
+					"type": "object",
+					"properties": {
+						"unit": {
+							"type": "string"
+						},
+						"speed": {
+							"type": "integer"
+						}
+					}
+				},
+				"clouds": {
+					"type": "object",
+					"properties": {
+						"all": {
+							"type": "integer"
+						}
+					}
+				},
+				"rain": {
+					"type": "object",
+					"properties": {
+						"unit": {
+							"type": "string"
+						},
+						"1h": {
+							"type": "integer"
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

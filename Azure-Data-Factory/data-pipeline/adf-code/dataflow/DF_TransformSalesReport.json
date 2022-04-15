@@ -1,0 +1,208 @@
+{
+	"name": "DF_TransformSalesReport",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_DataLake_SalesInvoices",
+						"type": "DatasetReference"
+					},
+					"name": "salesInvoices"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_DataLake_SalesInvoiceLines",
+						"type": "DatasetReference"
+					},
+					"name": "salesInvoiceLines"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_DataLake_Weather",
+						"type": "DatasetReference"
+					},
+					"name": "externalWeather"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SalesDB_ReportingSalesProfits",
+						"type": "DatasetReference"
+					},
+					"name": "salesReport"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectSalesInvoices"
+				},
+				{
+					"name": "selectSalesInvoiceLines"
+				},
+				{
+					"name": "joinSales"
+				},
+				{
+					"name": "salesDailyProfit"
+				},
+				{
+					"name": "addAuditColumns"
+				},
+				{
+					"name": "weatherJoin"
+				},
+				{
+					"name": "selectWeatherTemperature"
+				},
+				{
+					"name": "formatWeatherTemperature"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     copiedDate as string ('2022-03-24'),",
+				"     copiedPipelineId as string ('0000-test')",
+				"}",
+				"source(output(",
+				"          InvoiceID as integer,",
+				"          CustomerID as integer,",
+				"          BillToCustomerID as integer,",
+				"          OrderID as integer,",
+				"          DeliveryMethodID as integer,",
+				"          ContactPersonID as integer,",
+				"          AccountsPersonID as integer,",
+				"          SalespersonPersonID as integer,",
+				"          PackedByPersonID as integer,",
+				"          InvoiceDate as date,",
+				"          CustomerPurchaseOrderNumber as string,",
+				"          IsCreditNote as boolean,",
+				"          CreditNoteReason as string,",
+				"          Comments as string,",
+				"          DeliveryInstructions as string,",
+				"          InternalComments as string,",
+				"          TotalDryItems as integer,",
+				"          TotalChillerItems as integer,",
+				"          DeliveryRun as string,",
+				"          RunPosition as string,",
+				"          ReturnedDeliveryData as string,",
+				"          LastEditedBy as integer,",
+				"          LastEditedWhen as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> salesInvoices",
+				"source(output(",
+				"          InvoiceLineID as integer,",
+				"          InvoiceID as integer,",
+				"          StockItemID as integer,",
+				"          Description as string,",
+				"          PackageTypeID as integer,",
+				"          Quantity as integer,",
+				"          UnitPrice as decimal(18,2),",
+				"          TaxRate as decimal(18,3),",
+				"          TaxAmount as decimal(18,2),",
+				"          LineProfit as decimal(18,2),",
+				"          ExtendedPrice as decimal(18,2),",
+				"          LastEditedBy as integer,",
+				"          LastEditedWhen as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> salesInvoiceLines",
+				"source(output(",
+				"          {_id} as string,",
+				"          guid as string,",
+				"          date as timestamp,",
+				"          temp_unit as string,",
+				"          avg_temp as integer,",
+				"          wind_unit as string,",
+				"          wind_speed as integer,",
+				"          clouds_all as boolean,",
+				"          rain_unit as string,",
+				"          avg_rain_hr as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> externalWeather",
+				"salesInvoices select(mapColumn(",
+				"          InvoiceID,",
+				"          InvoiceDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectSalesInvoices",
+				"salesInvoiceLines select(mapColumn(",
+				"          InvoiceLineID,",
+				"          InvoiceID,",
+				"          StockItemID,",
+				"          Description,",
+				"          PackageTypeID,",
+				"          Quantity,",
+				"          UnitPrice,",
+				"          TaxRate,",
+				"          TaxAmount,",
+				"          LineProfit,",
+				"          LinePrice = ExtendedPrice,",
+				"          LastEditedBy,",
+				"          LastEditedWhen",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectSalesInvoiceLines",
+				"selectSalesInvoices, selectSalesInvoiceLines join(selectSalesInvoices@InvoiceID == selectSalesInvoiceLines@InvoiceID,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> joinSales",
+				"joinSales aggregate(groupBy(InvoiceDate),",
+				"     DailyTotal = sum(LinePrice),",
+				"          DailyProfit = sum(LineProfit)) ~> salesDailyProfit",
+				"weatherJoin derive(copiedDate = toDate($copiedDate),",
+				"          copiedPipelineId = $copiedPipelineId) ~> addAuditColumns",
+				"salesDailyProfit, selectWeatherTemperature join(InvoiceDate == weather_date,",
+				"     joinType:'left',",
+				"     broadcast: 'auto')~> weatherJoin",
+				"formatWeatherTemperature select(mapColumn(",
+				"          weather_date,",
+				"          temp_unit,",
+				"          avg_temp",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectWeatherTemperature",
+				"externalWeather derive(weather_date = toDate(toString(date, 'yyyy-MM-dd'))) ~> formatWeatherTemperature",
+				"addAuditColumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SalesProfitID as integer,",
+				"          InvoiceDate as date,",
+				"          DailyTotal as decimal(18,2),",
+				"          DailyProfit as decimal(18,2),",
+				"          WeatherAvgTemp as integer,",
+				"          WeatherUnit as string,",
+				"          copiedDate as timestamp,",
+				"          copiedPipelineId as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     preSQLs:[(concat(\"DELETE FROM [Reporting].[SalesProfits] WHERE copiedDate = '\", $copiedDate, \"'\"))],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          InvoiceDate,",
+				"          DailyTotal,",
+				"          DailyProfit,",
+				"          WeatherAvgTemp = avg_temp,",
+				"          WeatherUnit = temp_unit,",
+				"          copiedDate,",
+				"          copiedPipelineId",
+				"     )) ~> salesReport"
+			]
+		}
+	}
+}

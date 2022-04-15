@@ -1,0 +1,296 @@
+{
+	"name": "PL_Demo2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy External Weather data to Bronze",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']"
+								},
+								"sink": {
+									"name": "_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['guid']"
+								},
+								"sink": {
+									"name": "guid",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['date']"
+								},
+								"sink": {
+									"name": "date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['main']['unit']"
+								},
+								"sink": {
+									"name": "temp_unit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['main']['temp']"
+								},
+								"sink": {
+									"name": "avg_temp",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['wind']['unit']"
+								},
+								"sink": {
+									"name": "wind_unit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['wind']['speed']"
+								},
+								"sink": {
+									"name": "wind_speed",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['clouds']['all']"
+								},
+								"sink": {
+									"name": "clouds_all",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rain']['unit']"
+								},
+								"sink": {
+									"name": "rain_unit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rain']['1h']"
+								},
+								"sink": {
+									"name": "avg_rain_hr",
+									"type": "Int32"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HTTP_WeatherData",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_DataLake_Weather",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy Sales Invoices to Bronze",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SalesDB_SalesInvoices",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_DataLake_SalesInvoices",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy Sales InvoiceLines to Bronze",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SalesDB_SalesInvoiceLines",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_DataLake_SalesInvoiceLines",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Transform Sales Report",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy External Weather data to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy Sales Invoices to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy Sales InvoiceLines to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_TransformSalesReport",
+						"type": "DataFlowReference",
+						"parameters": {
+							"copiedDate": {
+								"value": "'@{pipeline().parameters.copiedDate}'",
+								"type": "Expression"
+							},
+							"copiedPipelineId": {
+								"value": "'@{pipeline().RunId}'",
+								"type": "Expression"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"parameters": {
+			"copiedDate": {
+				"type": "string",
+				"defaultValue": "2022-04-15"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-12T19:55:26Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

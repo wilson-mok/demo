@@ -1,0 +1,19 @@
+{
+	"name": "LS_SalesDatabase",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=yourSqlServer.database.windows.net;Initial Catalog=yourSqlDB;User ID=dataUser",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_KeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "dpsqlserverdemo-dataUser"
+			}
+		}
+	}
+}

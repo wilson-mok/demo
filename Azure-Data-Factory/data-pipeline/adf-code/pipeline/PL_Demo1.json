@@ -1,0 +1,200 @@
+{
+	"name": "PL_Demo1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy External Weather data to Landing",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE FROM [Landing].[Weather]",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']"
+								},
+								"sink": {
+									"name": "sourceId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['guid']"
+								},
+								"sink": {
+									"name": "guid",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['date']"
+								},
+								"sink": {
+									"name": "weatherDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['main']['unit']"
+								},
+								"sink": {
+									"name": "tempUnit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['main']['temp']"
+								},
+								"sink": {
+									"name": "avgTemp",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['wind']['unit']"
+								},
+								"sink": {
+									"name": "windUnit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['wind']['speed']"
+								},
+								"sink": {
+									"name": "avgSpeed",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['clouds']['all']"
+								},
+								"sink": {
+									"name": "hasCloud",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rain']['unit']"
+								},
+								"sink": {
+									"name": "rainUnit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rain']['1h']"
+								},
+								"sink": {
+									"name": "avgPerHour",
+									"type": "Int32"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HTTP_WeatherData",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SalesDB_LandingWeatherTable",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Transform Weather Data",
+				"description": " ",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy External Weather data to Landing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[ExternalData].[transformWeather]",
+					"storedProcedureParameters": {
+						"copiedDate": {
+							"value": {
+								"value": "@pipeline().parameters.copiedDate",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"copiedPipelineId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_SalesDatabase",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"copiedDate": {
+				"type": "string",
+				"defaultValue": "2022-04-15"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-12T19:55:26Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

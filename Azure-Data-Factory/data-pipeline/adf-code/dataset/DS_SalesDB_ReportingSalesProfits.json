@@ -1,0 +1,57 @@
+{
+	"name": "DS_SalesDB_ReportingSalesProfits",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SalesDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SalesProfitID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "InvoiceDate",
+				"type": "date"
+			},
+			{
+				"name": "DailyTotal",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "DailyProfit",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "WeatherAvgTemp",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "WeatherUnit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "copiedDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "copiedPipelineId",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "Reporting",
+			"table": "SalesProfits"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
