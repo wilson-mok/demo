@@ -1,0 +1,722 @@
+[
+  {
+    "_id": "623a443acedcfadcc47c9902",
+    "guid": "53decd71-3b96-436f-9088-8b6ffe9f6997",
+    "date": "2022-02-15",
+    "main": {
+      "unit": "celsius",
+      "temp": 20
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 11
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 4
+    }
+  },
+  {
+    "_id": "623a443a302730dcd90fdfab",
+    "guid": "b4a065be-76c4-4c41-b656-168dc00fc1a1",
+    "date": "2022-02-16",
+    "main": {
+      "unit": "celsius",
+      "temp": 22
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 32
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  },
+  {
+    "_id": "623a443ae4bace3c5ee1e77a",
+    "guid": "c1f8a773-8bfe-4dd0-bc56-0ca9655f731f",
+    "date": "2022-02-17",
+    "main": {
+      "unit": "celsius",
+      "temp": 10
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 23
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443a65a6da70652c0667",
+    "guid": "1db5ae9e-b984-4055-b348-f0e150a1db39",
+    "date": "2022-02-18",
+    "main": {
+      "unit": "celsius",
+      "temp": 15
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 9
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 4
+    }
+  },
+  {
+    "_id": "623a443ac1a7c69f4fb59d18",
+    "guid": "f342c0c0-bd40-43ef-92b5-fa79c5c4ea3b",
+    "date": "2022-02-19",
+    "main": {
+      "unit": "celsius",
+      "temp": 23
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 25
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 5
+    }
+  },
+  {
+    "_id": "623a443afc599927a75a5c0b",
+    "guid": "723dcd72-92b9-4317-a9a2-bc7ece052d8d",
+    "date": "2022-02-20",
+    "main": {
+      "unit": "celsius",
+      "temp": 17
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 32
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 4
+    }
+  },
+  {
+    "_id": "623a443a6d08710d0a2ff62e",
+    "guid": "018d13e1-ae4a-46a6-9701-5a9313e04e06",
+    "date": "2022-02-21",
+    "main": {
+      "unit": "celsius",
+      "temp": 6
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 5
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  },
+  {
+    "_id": "623a443a3b96da7daa3a657b",
+    "guid": "8caba192-e707-4177-8d36-d31019d008f2",
+    "date": "2022-02-22",
+    "main": {
+      "unit": "celsius",
+      "temp": 19
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 11
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  },
+  {
+    "_id": "623a443a8e4298e68b6fb6b5",
+    "guid": "78cac24e-9e34-418a-a117-65c58f47fd67",
+    "date": "2022-02-23",
+    "main": {
+      "unit": "celsius",
+      "temp": 6
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 30
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  },
+  {
+    "_id": "623a443ae81733b08149a653",
+    "guid": "14b18054-32d1-4ab7-8ac7-d9a14619155f",
+    "date": "2022-02-24",
+    "main": {
+      "unit": "celsius",
+      "temp": 25
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 9
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 1
+    }
+  },
+  {
+    "_id": "623a443a3eeb3211d22a8cf2",
+    "guid": "60923ebc-bdd4-41f3-84f2-224bd5af1baa",
+    "date": "2022-02-25",
+    "main": {
+      "unit": "celsius",
+      "temp": 7
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 32
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 0
+    }
+  },
+  {
+    "_id": "623a443a24e09114084e69c6",
+    "guid": "8eb06fcc-e274-4408-8875-07b3b94cebf3",
+    "date": "2022-02-26",
+    "main": {
+      "unit": "celsius",
+      "temp": 5
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 20
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443a72eee713f5ab7d07",
+    "guid": "e653dc0c-ff70-4818-b782-dd941d25078f",
+    "date": "2022-02-27",
+    "main": {
+      "unit": "celsius",
+      "temp": 14
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 10
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 0
+    }
+  },
+  {
+    "_id": "623a443a5f583b4b9585c503",
+    "guid": "75bc8695-d8ef-449c-a6cc-ec96bbf9002d",
+    "date": "2022-02-28",
+    "main": {
+      "unit": "celsius",
+      "temp": 19
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 21
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  },
+  {
+    "_id": "623a443afe7d92ce5188d372",
+    "guid": "6fcbbda9-e54f-40ae-959b-77b421dbb896",
+    "date": "2022-03-01",
+    "main": {
+      "unit": "celsius",
+      "temp": 20
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 3
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443a581ee017c6514560",
+    "guid": "3d02240e-91eb-4cb5-85dc-ce315663763d",
+    "date": "2022-03-02",
+    "main": {
+      "unit": "celsius",
+      "temp": 6
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 18
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 0
+    }
+  },
+  {
+    "_id": "623a443a60f76bb5b38b84b1",
+    "guid": "00d1f3bc-9031-458f-8f71-b3e8fe26a840",
+    "date": "2022-03-03",
+    "main": {
+      "unit": "celsius",
+      "temp": 24
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 30
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 0
+    }
+  },
+  {
+    "_id": "623a443ab41fcc1a5b4118ed",
+    "guid": "436a6f28-b1fb-4aaa-8bfe-faba27c877ad",
+    "date": "2022-03-04",
+    "main": {
+      "unit": "celsius",
+      "temp": 9
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 20
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 1
+    }
+  },
+  {
+    "_id": "623a443ae2840e48ff49ead9",
+    "guid": "ebf93cfb-4c95-41fb-9a89-4c2b10c08176",
+    "date": "2022-03-05",
+    "main": {
+      "unit": "celsius",
+      "temp": 18
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 20
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 4
+    }
+  },
+  {
+    "_id": "623a443a1ea92c27ca71f669",
+    "guid": "9e408b71-403a-4a45-a096-5f73dcadf7b8",
+    "date": "2022-03-06",
+    "main": {
+      "unit": "celsius",
+      "temp": 18
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 13
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443aeaee5af5199f135b",
+    "guid": "b00f143e-387b-4734-9536-7c175c614cee",
+    "date": "2022-03-07",
+    "main": {
+      "unit": "celsius",
+      "temp": 14
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 2
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 5
+    }
+  },
+  {
+    "_id": "623a443abcf6e1627a49b21d",
+    "guid": "9b2a547f-98f6-478e-9124-b854a75d8735",
+    "date": "2022-03-08",
+    "main": {
+      "unit": "celsius",
+      "temp": 13
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 21
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 0
+    }
+  },
+  {
+    "_id": "623a443a9cbc7a6e92662bc1",
+    "guid": "303ddfa1-780a-42c8-8f72-6b866f7b53a6",
+    "date": "2022-03-09",
+    "main": {
+      "unit": "celsius",
+      "temp": 23
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 35
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  },
+  {
+    "_id": "623a443a825d1245119d0007",
+    "guid": "361e27a1-362a-41e1-89e2-1f25428efee8",
+    "date": "2022-03-10",
+    "main": {
+      "unit": "celsius",
+      "temp": 21
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 31
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 5
+    }
+  },
+  {
+    "_id": "623a443a27f5b44b625a7116",
+    "guid": "54d2583d-a677-461a-a547-6a7f518f8793",
+    "date": "2022-03-11",
+    "main": {
+      "unit": "celsius",
+      "temp": 10
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 27
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 4
+    }
+  },
+  {
+    "_id": "623a443aa246726d206ba38f",
+    "guid": "8f84a69c-2403-40fd-a1bd-ab53c1fa5dea",
+    "date": "2022-03-12",
+    "main": {
+      "unit": "celsius",
+      "temp": 17
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 5
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 1
+    }
+  },
+  {
+    "_id": "623a443abbe5ea43d683cf89",
+    "guid": "a0431cc1-f2c8-4edb-b448-b8d3804afafa",
+    "date": "2022-03-13",
+    "main": {
+      "unit": "celsius",
+      "temp": 23
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 32
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443aeb7b7f84ba2272df",
+    "guid": "f2c0dab5-5c60-42c8-b8e5-40759e2e9bb8",
+    "date": "2022-03-14",
+    "main": {
+      "unit": "celsius",
+      "temp": 22
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 16
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 1
+    }
+  },
+  {
+    "_id": "623a443ad4be0e4e0f5ef8af",
+    "guid": "37931667-d386-4b01-99a8-888275995084",
+    "date": "2022-03-15",
+    "main": {
+      "unit": "celsius",
+      "temp": 15
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 29
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443a55f0b8a47c689e82",
+    "guid": "5c117ac2-259a-4444-9983-3430a622d46e",
+    "date": "2022-03-16",
+    "main": {
+      "unit": "celsius",
+      "temp": 25
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 27
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 4
+    }
+  },
+  {
+    "_id": "623a443a4a7425aa47d4133c",
+    "guid": "5a2f334e-5be2-4b57-9723-8241caa263e2",
+    "date": "2022-03-17",
+    "main": {
+      "unit": "celsius",
+      "temp": 7
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 13
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443a0619240c971a0999",
+    "guid": "a8857a49-6b60-4289-8a94-d9ec9d1c564c",
+    "date": "2022-03-18",
+    "main": {
+      "unit": "celsius",
+      "temp": 15
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 3
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443aea2faab204fbe78a",
+    "guid": "9f2d7ab8-d782-488e-8d7e-15937064fdc0",
+    "date": "2022-03-19",
+    "main": {
+      "unit": "celsius",
+      "temp": 18
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 3
+    },
+    "clouds": {
+      "all": 0
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 0
+    }
+  },
+  {
+    "_id": "623a443a48569ea16ddd5491",
+    "guid": "1890cf5d-956c-4dd6-9cf5-904dee72d2bf",
+    "date": "2022-03-20",
+    "main": {
+      "unit": "celsius",
+      "temp": 15
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 31
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 5
+    }
+  },
+  {
+    "_id": "623a443ac59786fb0959ec41",
+    "guid": "4a716ec3-b37c-49c9-a7d1-99347f8833f7",
+    "date": "2022-03-21",
+    "main": {
+      "unit": "celsius",
+      "temp": 12
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 6
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 3
+    }
+  },
+  {
+    "_id": "623a443a7fe3cf1eb173d0d6",
+    "guid": "511ed482-a583-4817-a949-3224a7203eac",
+    "date": "2022-03-22",
+    "main": {
+      "unit": "celsius",
+      "temp": 5
+    },
+    "wind": {
+      "unit": "mph",
+      "speed": 17
+    },
+    "clouds": {
+      "all": 1
+    },
+    "rain": {
+      "unit": "mm",
+      "1h": 2
+    }
+  }
+]
