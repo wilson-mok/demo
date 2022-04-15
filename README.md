@@ -2,7 +2,7 @@
 In this repo, you will find the instructions and source code used for my demos. 
 
 # Presentation  
-## Azure Data Factory | Data pipelien | Mapping Data Flow
+## Azure Data Factory | Data pipeline | Mapping Data Flow
 Description: In this session, Wilson will guide you through the best practices and the process of creating a data pipeline using Mapping Data flow in Azure Data Factory. This includes:  
    * Overview of Azure Data Factory
    * How to design a data pipeline? 
