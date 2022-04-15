@@ -20,7 +20,7 @@ In this demo, we will be using Azure Devops pipeline to impleement the CI/CD pro
 1. The Dev - Azure Data Factory requires to have data pipeline deployed. 
 
 ### Integration
-![Service integration](./images/ADF-CICD.png)  
+![Service integration](./images/ADF-cicd.png)  
 The detail integration between the different Azure services, please refer to the [Data pipeline README.md](../data-pipeline/README.md).
 
 ## Code and scripts
