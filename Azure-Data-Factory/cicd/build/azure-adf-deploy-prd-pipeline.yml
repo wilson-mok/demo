@@ -50,31 +50,4 @@ stages:
                   csmParametersFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateParametersForFactory.json'
                   overrideParameters: '-factoryName "$(PrdAdfName)" -LS_SalesDatabase_connectionString "$(PrdSalesDbConnectionString)" -LS_DataLake_properties_typeProperties_url "$(PrdDataLakeUrl)" -LS_KeyVault_properties_typeProperties_baseUrl "$(PrdKeyVaultBaseUrl)"'
                   deploymentMode: 'Incremental'
-
-              # - task: DownloadPipelineArtifact@2
-              #   displayName: Download Build Artifacts from Dev Build
-              #   inputs:
-              #     source: 'specific'
-              #     project: 'Demo'
-              #     pipeline: 6
-              #     artifactName: '$(CommonPublishArmTemplateName)'
-              #     downloadPath: '$(WorkspaceArmTemplateDirectory)'
-              #
-              # - script: dir
-              #   displayName: List files in Workspace
-              #   workingDirectory: '$(WorkspaceArmTemplateDirectory)'
-              #
-              # - task: AzureResourceManagerTemplateDeployment@3
-              #   displayName: 'Deploying to Prd RG task'
-              #   inputs:
-              #     deploymentScope: 'Resource Group'
-              #     azureResourceManagerConnection: '$(PrdDeployDevOpsConnection)'
-              #     subscriptionId: '$(PrdSubscriptionId)'
-              #     action: 'Create Or Update Resource Group'
-              #     resourceGroupName: '$(PrdAdfRgName)'
-              #     location: '$(PrdAdfLocation)'
-              #     templateLocation: 'Linked artifact'
-              #     csmFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateForFactory.json'
-              #     csmParametersFile: '$(WorkspaceArmTemplateDirectory)/ARMTemplateParametersForFactory.json'
-              #     overrideParameters: '-factoryName "$(PrdAdfName)" -LS_SalesDatabase_connectionString "$(PrdSalesDbConnectionString)" -LS_DataLake_properties_typeProperties_url "$(PrdDataLakeUrl)" -LS_KeyVault_properties_typeProperties_baseUrl "$(PrdKeyVaultBaseUrl)"'
-              #     deploymentMode: 'Incremental'
+                  
