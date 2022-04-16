@@ -1,6 +1,6 @@
-# Pipeline Name: ADF-Demo-Prd-Pipeline
+# Pipeline Name: ADF-Demo-Deploy-Prd-Pipeline
 # YAML File: azure-adf-deploy-prd-pipeline.yml
-# Description: Deploy to ADF-Demo-Prd pipeline.
+# Description: Deploy to ADF-Demo-Deploy-Prd-Pipeline.
 
 resources:
   pipelines:
