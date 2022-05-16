@@ -28,6 +28,6 @@ The detail integration between the different Azure services, please refer to the
 | --- | --- |
 | [Data pipeline](../data-pipeline) | Please refer to the Azure Data Factory Data pipeline demo for the inital setup. In this demo, two seperate environments are required. We need to deploy a the same Azure services for Development and Produciton. |
 | build/package.json | This JSON file contains the location of the Azure Data Factory Utilities and its dependency. |
-| build/azure-adf-build-deploy-dev-pipeline.yml | This file contains the build (CI) and deployment to the  (Dev) Azure Data Factory - Live mode (CD). |
-| build/azure-adf-deploy-prd-pipeline.yml | This file contains the build (CI) and deployment to the  (Dev) Azure Data Factory - Live mode (CD). |
+| build/azure-adf-build-deploy-dev-pipeline.yml | This file contains the build (CI) and deployment to the (Dev) Azure Data Factory - Live mode (CD). |
+| build/azure-adf-deploy-prd-pipeline.yml | This file contains the build (CI) and deployment to the (Prd) Azure Data Factory - Live mode (CD). |
 
