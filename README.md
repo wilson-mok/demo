@@ -1,5 +1,5 @@
 # Demo
-In this repo, you will find the instructions and source code used for my demos. 
+In this repo, you will find the instructions and source codes for my demos. 
 
 # Presentation  
 ## Azure Data Factory | Data pipeline | Mapping Data Flow
