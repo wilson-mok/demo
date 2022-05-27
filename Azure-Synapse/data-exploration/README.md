@@ -21,7 +21,7 @@ For this demo, we require:
 ## Code and scripts
 | Folder/file | Description |
 | --- | --- |
-| src/p_download_opendata_nycTaxiYellow2019.ipynb | This PySpark file contains the code to extract the Jan 2019 - NYC Trip Yellow Tax data from [Azure Open Dataset](https://docs.microsoft.com/en-us/azure/open-datasets/dataset-taxi-yellow?tabs=pyspark#azure-synapse) |
+| src/p_download_opendata_nycTaxiYellow2019.ipynb | This PySpark file contains the code to extract the Jan 2019 - NYC Trip Yellow Tax data from [Azure Open Dataset](https://docs.microsoft.com/en-us/azure/open-datasets/dataset-taxi-yellow?tabs=pyspark#azure-synapse). |
 | requirements.txt | This script contains the library used in the demo. This needs to be install in the Spark cluster: You can follow the instruction [here](https://docs.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-manage-python-packages). |
 | src/d1_create_sql_nycTripYellow2019Jan.sql | This SQL script will create the Schema and External Table from the parquet file. |
 | src/d1_explore_sql_nycTripYellow2019Jan.sql | This SQL script illustrates the steps to conduct a data exploration in Serverless SQL. |
