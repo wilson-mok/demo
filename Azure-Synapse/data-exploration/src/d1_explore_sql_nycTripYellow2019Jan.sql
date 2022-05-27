@@ -32,7 +32,7 @@ GO
 
 CREATE EXTERNAL TABLE nycYellow2019Jan.avgPassengerTripUsage
 WITH (
-   LOCATION = 'analyizeData/nycYellow2019Jan/avgPassengerTripUsage/',
+   LOCATION = 'analyzeData/nycYellow2019Jan/avgPassengerTripUsage/',
      DATA_SOURCE = data_dpsyndlsdemodev_dfs_core_windows_net,
      FILE_FORMAT = SynapseParquetFormat
  )
