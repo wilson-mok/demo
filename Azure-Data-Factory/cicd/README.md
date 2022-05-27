@@ -1,4 +1,4 @@
-# CI/CD with Azure Data Factory demo
+# Azure Data Factory - CI/CD demo
 The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo includes: 
 - Setting up a git repository in Azure Data Factory.
 - What is the continuous integration and delivery (CI/CD) process?

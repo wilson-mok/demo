@@ -1,4 +1,4 @@
-# Data Pipeline demo
+# Azure Data Factory - Data Pipeline demo
 The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo includes: 
 - Overview of the main components of Azure Data Factory
 - How to design a data pipeline?
@@ -19,7 +19,7 @@ In this demo, we are using 4 Azure resources:
 1. Azure Data Factory (ADF)
 1. Azure SQL Database
 1. Azure Key Vault
-1. Azure Storage with hierachical namespace enabled (Data Lake gen 2)  
+1. Azure Storage with hierarchical namespace enabled (Data Lake gen 2)  
 
 ### Integration
 ![Service integration](./images/ADF-data-pipeline-integration.png)
