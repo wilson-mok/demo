@@ -7,6 +7,9 @@ The purpose of this article is to provide the setup instructions for the recorde
 
 In the end, you will be ready to create your own data warehousing solution in Azure Synapse Analytics.
 
+![Azure Synapse - Data Warehousing diagram](./Azure%20Synapse%20-%20Data%20Warehousing.png)
+
+
 ## Video
 Link: [Youtube - Dear Azure - Data Warehousing with Azure Synapses | Azure Synapse best practice | Dedicated SQL Pool](https://www.youtube.com/watch?v=DOF4fEQSseQ)
 
