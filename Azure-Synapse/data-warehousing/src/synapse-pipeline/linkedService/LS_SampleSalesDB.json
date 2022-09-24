@@ -1,0 +1,16 @@
+{
+	"name": "LS_SampleSalesDB",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=yourSqlServer.database.windows.net;initial catalog=yourSalesSqlDB;user id=dataUser",
+			"encryptedCredential": "yourPassword"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

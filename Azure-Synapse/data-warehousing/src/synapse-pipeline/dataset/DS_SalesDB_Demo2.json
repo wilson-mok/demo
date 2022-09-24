@@ -1,0 +1,32 @@
+{
+	"name": "DS_SalesDB_Demo2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SampleSalesDB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "Demo2"
+			},
+			"tableNme": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().tableNme",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

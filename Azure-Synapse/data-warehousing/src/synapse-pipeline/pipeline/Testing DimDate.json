@@ -1,0 +1,45 @@
+{
+	"name": "Testing DimDate",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyDimDate",
+				"description": "SCD0",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:15:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_DimDate",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "yoursynapseworkspace-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "data/processedData/dataFlowStaging/"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Testing DF"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-17T06:17:00Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

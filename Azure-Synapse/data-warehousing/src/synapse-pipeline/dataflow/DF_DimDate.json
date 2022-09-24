@@ -1,0 +1,184 @@
+{
+	"name": "DF_DimDate",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "yoursynapseworkspace-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "srcSaleInvoices"
+				},
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "srcDimDate"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkDimDate"
+				}
+			],
+			"transformations": [
+				{
+					"name": "uniqueDate"
+				},
+				{
+					"name": "selectInputDate"
+				},
+				{
+					"name": "findNew"
+				},
+				{
+					"name": "createDateColumns"
+				},
+				{
+					"name": "maxSk"
+				},
+				{
+					"name": "createTempSk"
+				},
+				{
+					"name": "updateSk"
+				},
+				{
+					"name": "addDwhDimCol"
+				},
+				{
+					"name": "removeColumns"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          InvoiceID as integer,",
+				"          CustomerID as integer,",
+				"          BillToCustomerID as integer,",
+				"          OrderID as integer,",
+				"          DeliveryMethodID as integer,",
+				"          ContactPersonID as integer,",
+				"          AccountsPersonID as integer,",
+				"          SalespersonPersonID as integer,",
+				"          PackedByPersonID as integer,",
+				"          InvoiceDate as date,",
+				"          CustomerPurchaseOrderNumber as string,",
+				"          IsCreditNote as boolean,",
+				"          CreditNoteReason as string,",
+				"          Comments as string,",
+				"          DeliveryInstructions as string,",
+				"          InternalComments as string,",
+				"          TotalDryItems as integer,",
+				"          TotalChillerItems as integer,",
+				"          DeliveryRun as string,",
+				"          RunPosition as string,",
+				"          ReturnedDeliveryData as string,",
+				"          ConfirmedDeliveryTime as timestamp,",
+				"          ConfirmedReceivedBy as string,",
+				"          LastEditedBy as integer,",
+				"          LastEditedWhen as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet',",
+				"     fileSystem: 'data',",
+				"     wildcardPaths:['sourceData/SalesDB/Invoices/*.parquet']) ~> srcSaleInvoices",
+				"source(output(",
+				"          skDate as long,",
+				"          nkDateId as long,",
+				"          date as date,",
+				"          year as integer,",
+				"          month as integer,",
+				"          dayOfMonth as integer,",
+				"          quarter as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'DimDate',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> srcDimDate",
+				"srcSaleInvoices aggregate(groupBy(InvoiceDate),",
+				"     inputDate = first(InvoiceDate)) ~> uniqueDate",
+				"uniqueDate select(mapColumn(",
+				"          inputDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectInputDate",
+				"selectInputDate, srcDimDate exists(inputDate == date,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> findNew",
+				"findNew derive({nkDateId } = toLong(toString(inputDate,'yyyyMMdd')),",
+				"          date = inputDate,",
+				"          year = year(inputDate),",
+				"          month = month(inputDate),",
+				"          dayOfMonth = dayOfMonth(inputDate),",
+				"          quarter = ceil(month(inputDate)/3)) ~> createDateColumns",
+				"srcDimDate aggregate(maxSk = iifNull(max(skDate),0)) ~> maxSk",
+				"createDateColumns keyGenerate(output(tempSKDate as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> createTempSk",
+				"createTempSk, maxSk join(tempSKDate == maxSk || true(),",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> updateSk",
+				"updateSk derive(skDate = tempSKDate + maxSk) ~> addDwhDimCol",
+				"addDwhDimCol select(mapColumn(",
+				"          {nkDateId },",
+				"          date,",
+				"          year,",
+				"          month,",
+				"          dayOfMonth,",
+				"          quarter,",
+				"          skDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removeColumns",
+				"removeColumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          skDate as long,",
+				"          nkDateId as long,",
+				"          date as timestamp,",
+				"          year as integer,",
+				"          month as integer,",
+				"          dayOfMonth as integer,",
+				"          quarter as integer",
+				"     ),",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'DimDate',",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     allowCopyCommand: true,",
+				"     staged: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          nkDateId = {nkDateId },",
+				"          date,",
+				"          year,",
+				"          month,",
+				"          dayOfMonth,",
+				"          quarter,",
+				"          skDate",
+				"     )) ~> sinkDimDate"
+			]
+		}
+	}
+}

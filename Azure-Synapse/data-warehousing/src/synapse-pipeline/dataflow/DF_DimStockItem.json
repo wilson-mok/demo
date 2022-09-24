@@ -1,0 +1,246 @@
+{
+	"name": "DF_DimStockItem",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "yoursynapseworkspace-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "SrcSalesStockItem"
+				},
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "SrcDimStockItem"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkDimStockItem"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectColumns"
+				},
+				{
+					"name": "createHashs"
+				},
+				{
+					"name": "findNewAndUpdated"
+				},
+				{
+					"name": "filterActive"
+				},
+				{
+					"name": "maxSk"
+				},
+				{
+					"name": "addDwhDimCols"
+				},
+				{
+					"name": "addTempSk"
+				},
+				{
+					"name": "updateSK"
+				},
+				{
+					"name": "removeTempCols"
+				},
+				{
+					"name": "markAsInsert"
+				},
+				{
+					"name": "maxNkEffectiveDate"
+				},
+				{
+					"name": "joinActiveIdHash"
+				},
+				{
+					"name": "updateIdHashName"
+				},
+				{
+					"name": "findExpiredtoUpdate"
+				},
+				{
+					"name": "findUpdatedExpiryDate"
+				},
+				{
+					"name": "updateExpiry"
+				},
+				{
+					"name": "selectExpiry"
+				},
+				{
+					"name": "removeExtraColumns"
+				},
+				{
+					"name": "markAsUpdate"
+				},
+				{
+					"name": "unionAllChanges"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          StockItemID as integer,",
+				"          StockItemName as string,",
+				"          SupplierID as integer,",
+				"          ColorID as integer,",
+				"          UnitPackageID as integer,",
+				"          OuterPackageID as integer,",
+				"          Brand as string,",
+				"          Size as string,",
+				"          LeadTimeDays as integer,",
+				"          QuantityPerOuter as integer,",
+				"          IsChillerStock as boolean,",
+				"          Barcode as string,",
+				"          TaxRate as decimal(18,3),",
+				"          UnitPrice as decimal(18,2),",
+				"          RecommendedRetailPrice as decimal(18,2),",
+				"          TypicalWeightPerUnit as decimal(18,3),",
+				"          MarketingComments as string,",
+				"          InternalComments as string,",
+				"          Photo as binary,",
+				"          CustomFields as string,",
+				"          Tags as string,",
+				"          SearchDetails as string,",
+				"          LastEditedBy as integer,",
+				"          ValidFrom as timestamp,",
+				"          ValidTo as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet',",
+				"     fileSystem: 'data',",
+				"     wildcardPaths:['sourceData/SalesDB/StockItems/*.parquet']) ~> SrcSalesStockItem",
+				"source(output(",
+				"          skStockItem as long,",
+				"          nkStockItemId as long,",
+				"          itemDescription as string,",
+				"          size as string,",
+				"          leadTimeDays as integer,",
+				"          isChillerRequired as boolean,",
+				"          idHash as string,",
+				"          dataHash as string,",
+				"          active as boolean,",
+				"          effectiveDate as timestamp,",
+				"          expiryDate as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'DimStockItem',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> SrcDimStockItem",
+				"SrcSalesStockItem select(mapColumn(",
+				"          nkStockItemId = StockItemID,",
+				"          itemDescription = StockItemName,",
+				"          size = Size,",
+				"          leadTimeDays = LeadTimeDays,",
+				"          isChillerRequired = IsChillerStock,",
+				"          newEffectiveDate = ValidFrom,",
+				"          newExpiryDate = ValidTo",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectColumns",
+				"selectColumns derive(newIdHash = sha2(256,toString(nkStockItemId)),",
+				"          newDataHash = sha2(256,iifNull(itemDescription,'')+iifNull(size,'')+iifNull(toString(leadTimeDays),'')+iifNull(toString(isChillerRequired),''))) ~> createHashs",
+				"createHashs, filterActive exists(newIdHash == idHash",
+				"     && newDataHash == dataHash,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> findNewAndUpdated",
+				"SrcDimStockItem filter(iifNull(active, false())) ~> filterActive",
+				"SrcDimStockItem aggregate(maxSk = iifNull(max(skStockItem),0)) ~> maxSk",
+				"joinActiveIdHash derive(skStockItem = tempSkStockItem + maxSk,",
+				"          active = newEffectiveDate == activeEffectiveDate,",
+				"          idHash = newIdHash,",
+				"          dataHash = newDataHash,",
+				"          effectiveDate = newEffectiveDate,",
+				"          expiryDate = newExpiryDate) ~> addDwhDimCols",
+				"findNewAndUpdated keyGenerate(output(tempSkStockItem as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> addTempSk",
+				"addTempSk, maxSk join(tempSkStockItem == maxSk || true(),",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> updateSK",
+				"addDwhDimCols select(mapColumn(",
+				"          each(match(!in(['tempSkStockItem','maxSk','activeIdHash','activeEffectiveDate','newIdHash','newDataHash','newEffectiveDate','newExpiryDate'],name)))",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removeTempCols",
+				"removeTempCols alterRow(insertIf(true())) ~> markAsInsert",
+				"updateSK aggregate(groupBy(newIdHash),",
+				"     activeEffectiveDate = max(newEffectiveDate)) ~> maxNkEffectiveDate",
+				"updateSK, updateIdHashName join(newIdHash == activeIdHash,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinActiveIdHash",
+				"maxNkEffectiveDate select(mapColumn(",
+				"          activeIdHash = newIdHash,",
+				"          activeEffectiveDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> updateIdHashName",
+				"filterActive, selectExpiry exists(newIdHash == idHash",
+				"     && newDataHash != dataHash,",
+				"     negate:false,",
+				"     broadcast: 'right')~> findExpiredtoUpdate",
+				"findExpiredtoUpdate, selectExpiry join(idHash == newIdHash",
+				"     && dataHash == newDataHash,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'right')~> findUpdatedExpiryDate",
+				"findUpdatedExpiryDate derive(active = false(),",
+				"          expiryDate = newExpiryDate) ~> updateExpiry",
+				"createHashs select(mapColumn(",
+				"          newEffectiveDate,",
+				"          newExpiryDate,",
+				"          newIdHash,",
+				"          newDataHash",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectExpiry",
+				"updateExpiry select(mapColumn(",
+				"          each(match(!in(['newIdHash','newDataHash','newEffectiveDate','newExpiryDate'],name)))",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removeExtraColumns",
+				"removeExtraColumns alterRow(updateIf(true())) ~> markAsUpdate",
+				"markAsInsert, markAsUpdate union(byName: true)~> unionAllChanges",
+				"unionAllChanges sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'DimStockItem',",
+				"     insertable: true,",
+				"     updateable: true,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     keys:['skStockItem'],",
+				"     allowCopyCommand: true,",
+				"     staged: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkDimStockItem"
+			]
+		}
+	}
+}

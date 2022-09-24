@@ -1,0 +1,380 @@
+{
+	"name": "DF_FactTransaction",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "yoursynapseworkspace-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "SrcSalesInvoiceLines"
+				},
+				{
+					"linkedService": {
+						"referenceName": "yoursynapseworkspace-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "SrcSalesInvoices"
+				},
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "SrcFactTransaction"
+				},
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "srcDimDate"
+				},
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "srcDimStockItem"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "LS_DWH_Demo2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkFactTransaction"
+				}
+			],
+			"transformations": [
+				{
+					"name": "maxSk"
+				},
+				{
+					"name": "selectColumnsInvoiceLines"
+				},
+				{
+					"name": "selectColumnsInvoices"
+				},
+				{
+					"name": "createHash"
+				},
+				{
+					"name": "createTotalBeforeTax"
+				},
+				{
+					"name": "findNewTransaction"
+				},
+				{
+					"name": "selectDateColumns"
+				},
+				{
+					"name": "removeInsertColumns"
+				},
+				{
+					"name": "addTempSk"
+				},
+				{
+					"name": "cleanUpColumns"
+				},
+				{
+					"name": "updateSk"
+				},
+				{
+					"name": "addDwhDimCols"
+				},
+				{
+					"name": "LookupInvoiceDate"
+				},
+				{
+					"name": "selectStockItemColumns"
+				},
+				{
+					"name": "lookupSkDate"
+				},
+				{
+					"name": "lookupSkStockItem"
+				},
+				{
+					"name": "findUpdateTransaction"
+				},
+				{
+					"name": "markAsInsert"
+				},
+				{
+					"name": "findUpdates"
+				},
+				{
+					"name": "updateDataColumns"
+				},
+				{
+					"name": "removeUpdateColumns"
+				},
+				{
+					"name": "markAsUpdate"
+				},
+				{
+					"name": "unionChanges"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          InvoiceLineID as integer,",
+				"          InvoiceID as integer,",
+				"          StockItemID as integer,",
+				"          Description as string,",
+				"          PackageTypeID as integer,",
+				"          Quantity as integer,",
+				"          UnitPrice as decimal(18,2),",
+				"          TaxRate as decimal(18,3),",
+				"          TaxAmount as decimal(18,2),",
+				"          LineProfit as decimal(18,2),",
+				"          ExtendedPrice as decimal(18,2),",
+				"          LastEditedBy as integer,",
+				"          LastEditedWhen as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet',",
+				"     fileSystem: 'data',",
+				"     wildcardPaths:['sourceData/SalesDB/InvoiceLines/*.parquet']) ~> SrcSalesInvoiceLines",
+				"source(output(",
+				"          InvoiceID as integer,",
+				"          CustomerID as integer,",
+				"          BillToCustomerID as integer,",
+				"          OrderID as integer,",
+				"          DeliveryMethodID as integer,",
+				"          ContactPersonID as integer,",
+				"          AccountsPersonID as integer,",
+				"          SalespersonPersonID as integer,",
+				"          PackedByPersonID as integer,",
+				"          InvoiceDate as date,",
+				"          CustomerPurchaseOrderNumber as string,",
+				"          IsCreditNote as boolean,",
+				"          CreditNoteReason as string,",
+				"          Comments as string,",
+				"          DeliveryInstructions as string,",
+				"          InternalComments as string,",
+				"          TotalDryItems as integer,",
+				"          TotalChillerItems as integer,",
+				"          DeliveryRun as string,",
+				"          RunPosition as string,",
+				"          ReturnedDeliveryData as string,",
+				"          ConfirmedDeliveryTime as timestamp,",
+				"          ConfirmedReceivedBy as string,",
+				"          LastEditedBy as integer,",
+				"          LastEditedWhen as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet',",
+				"     fileSystem: 'data',",
+				"     wildcardPaths:['sourceData/SalesDB/Invoices/*.parquet']) ~> SrcSalesInvoices",
+				"source(output(",
+				"          skTransaction as long,",
+				"          skInvoiceDate as long,",
+				"          skStockItem as long,",
+				"          invoiceId as long,",
+				"          quantity as integer,",
+				"          unitPrice as decimal(18,2),",
+				"          totalBeforeTax as decimal(18,2),",
+				"          taxRate as decimal(18,3),",
+				"          tax as decimal(18,2),",
+				"          totalAfterTax as decimal(18,2),",
+				"          profit as decimal(18,2),",
+				"          idHash as string,",
+				"          dataHash as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'FactTransaction',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> SrcFactTransaction",
+				"source(output(",
+				"          skDate as long,",
+				"          nkDateId as long,",
+				"          date as date,",
+				"          year as integer,",
+				"          month as integer,",
+				"          dayOfMonth as integer,",
+				"          quarter as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'DimDate',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> srcDimDate",
+				"source(output(",
+				"          skStockItem as long,",
+				"          nkStockItemId as long,",
+				"          itemDescription as string,",
+				"          size as string,",
+				"          leadTimeDays as integer,",
+				"          isChillerRequired as boolean,",
+				"          idHash as string,",
+				"          dataHash as string,",
+				"          active as boolean,",
+				"          effectiveDate as date,",
+				"          expiryDate as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'DimStockItem',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> srcDimStockItem",
+				"SrcFactTransaction aggregate(maxSk = iifNull(max(skTransaction),0)) ~> maxSk",
+				"SrcSalesInvoiceLines select(mapColumn(",
+				"          nkInvoiceId = InvoiceID,",
+				"          nkStockItemId = StockItemID,",
+				"          quantity = Quantity,",
+				"          unitPrice = UnitPrice,",
+				"          taxRate = TaxRate,",
+				"          tax = TaxAmount,",
+				"          profit = LineProfit,",
+				"          totalAfterTax = ExtendedPrice",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectColumnsInvoiceLines",
+				"SrcSalesInvoices select(mapColumn(",
+				"          nkInvoiceId = InvoiceID,",
+				"          nkInvoiceDate = InvoiceDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectColumnsInvoices",
+				"cleanUpColumns derive(newIdHash = sha2(256, toString(nkInvoiceId)+toString(nkInvoiceDate)+toString(nkStockItemId)),",
+				"          newDataHash = sha2(256, toString(quantity)+toString(unitPrice)+toString(totalBeforeTax)+toString(taxRate)+toString(tax)+toString(totalAfterTax)+toString(profit))) ~> createHash",
+				"selectColumnsInvoiceLines derive(totalBeforeTax = multiply(unitPrice,quantity)) ~> createTotalBeforeTax",
+				"createHash, SrcFactTransaction exists(newIdHash == idHash,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> findNewTransaction",
+				"srcDimDate select(mapColumn(",
+				"          skDate,",
+				"          t_Date = date",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectDateColumns",
+				"addDwhDimCols select(mapColumn(",
+				"          each(match(!in(['nkInvoiceId','nkStockItemId','nkInvoiceDate','newIdHash','newDataHash','tempSkTransaction','maxSk','t_Date','t_nkStockItemId','t_stockItemEffectiveDate','t_stockItemExpiryDate','skDate'],name)))",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removeInsertColumns",
+				"findNewTransaction keyGenerate(output(tempSkTransaction as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> addTempSk",
+				"LookupInvoiceDate select(mapColumn(",
+				"          nkInvoiceId = selectColumnsInvoiceLines@nkInvoiceId,",
+				"          nkStockItemId,",
+				"          quantity,",
+				"          unitPrice,",
+				"          taxRate,",
+				"          tax,",
+				"          profit,",
+				"          totalAfterTax,",
+				"          totalBeforeTax,",
+				"          nkInvoiceDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> cleanUpColumns",
+				"addTempSk, maxSk join(tempSkTransaction == maxSk || true(),",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> updateSk",
+				"lookupSkStockItem derive(skTransaction = tempSkTransaction + maxSk,",
+				"          skInvoiceDate = skDate,",
+				"          idHash = newIdHash,",
+				"          dataHash = newDataHash,",
+				"          invoiceId = nkInvoiceId) ~> addDwhDimCols",
+				"createTotalBeforeTax, selectColumnsInvoices lookup(selectColumnsInvoiceLines@nkInvoiceId == selectColumnsInvoices@nkInvoiceId,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> LookupInvoiceDate",
+				"srcDimStockItem select(mapColumn(",
+				"          skStockItem,",
+				"          t_nkStockItemId = nkStockItemId,",
+				"          t_stockItemEffectiveDate = effectiveDate,",
+				"          t_stockItemExpiryDate = expiryDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectStockItemColumns",
+				"updateSk, selectDateColumns lookup(nkInvoiceDate == t_Date,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookupSkDate",
+				"lookupSkDate, selectStockItemColumns lookup(nkStockItemId == t_nkStockItemId",
+				"     && nkInvoiceDate >= t_stockItemEffectiveDate",
+				"     && nkInvoiceDate <= t_stockItemExpiryDate,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'right')~> lookupSkStockItem",
+				"SrcFactTransaction, createHash exists(newIdHash == idHash",
+				"     && newDataHash != dataHash,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> findUpdateTransaction",
+				"removeInsertColumns alterRow(insertIf(true())) ~> markAsInsert",
+				"findUpdateTransaction, createHash join(idHash == newIdHash,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> findUpdates",
+				"findUpdates derive(quantity = cleanUpColumns@quantity,",
+				"          unitPrice = cleanUpColumns@unitPrice,",
+				"          totalBeforeTax = cleanUpColumns@totalBeforeTax,",
+				"          taxRate = cleanUpColumns@taxRate,",
+				"          tax = cleanUpColumns@tax,",
+				"          totalAfterTax = cleanUpColumns@totalAfterTax,",
+				"          profit = cleanUpColumns@profit,",
+				"          dataHash = newDataHash) ~> updateDataColumns",
+				"updateDataColumns select(mapColumn(",
+				"          skTransaction,",
+				"          skInvoiceDate,",
+				"          skStockItem,",
+				"          invoiceId,",
+				"          quantity,",
+				"          unitPrice,",
+				"          totalBeforeTax,",
+				"          taxRate,",
+				"          tax,",
+				"          totalAfterTax,",
+				"          profit,",
+				"          idHash,",
+				"          dataHash",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removeUpdateColumns",
+				"removeUpdateColumns alterRow(updateIf(true())) ~> markAsUpdate",
+				"markAsInsert, markAsUpdate union(byName: true)~> unionChanges",
+				"unionChanges sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'Demo2',",
+				"     tableName: 'FactTransaction',",
+				"     insertable: true,",
+				"     updateable: true,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     keys:['skTransaction'],",
+				"     allowCopyCommand: true,",
+				"     staged: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkFactTransaction"
+			]
+		}
+	}
+}

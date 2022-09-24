@@ -1,0 +1,103 @@
+{
+	"name": "Copy SalesDB",
+	"properties": {
+		"activities": [
+			{
+				"name": "For each Sales Table",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('salesTables')",
+						"type": "Expression"
+					},
+					"batchCount": 5,
+					"activities": [
+						{
+							"name": "Copy Sales Table",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0:15:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_SalesDB_Demo2",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": "Demo2",
+										"tableNme": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_DataLake_SalesDemo2",
+									"type": "DatasetReference",
+									"parameters": {
+										"directory": {
+											"value": "@concat(variables('dataLakeLocation'), item())",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"salesTables": {
+				"type": "Array",
+				"defaultValue": [
+					"Invoices",
+					"InvoiceLines",
+					"StockItems",
+					"StockItemsChange"
+				]
+			},
+			"dataLakeLocation": {
+				"type": "String",
+				"defaultValue": "sourceData/SalesDB/"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-17T05:35:12Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
