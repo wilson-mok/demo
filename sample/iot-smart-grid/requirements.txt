@@ -1,0 +1,3 @@
+dataclasses-json
+hydra-core
+azure-storage-file-datalake

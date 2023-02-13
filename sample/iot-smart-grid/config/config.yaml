@@ -1,0 +1,9 @@
+settings:
+  blob_storage_account_url: "https://sbdemostaiotsmartgrid.blob.core.windows.net"
+  blob_storage_container: "landing"
+  blob_storage_access_key: ""
+
+params:
+  num_of_batches: 10
+  num_of_meter_reading: 1
+  max_sleep_timer: 15
