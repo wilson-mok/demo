@@ -1,0 +1,3 @@
+blob_storage_account_url: "https://[Your storage account].blob.core.windows.net"
+blob_storage_container: "[Your container]"
+blob_storage_access_key: "[Your access key]"
