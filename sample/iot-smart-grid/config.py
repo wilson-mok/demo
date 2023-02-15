@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
 @dataclass
-class Settings:
-    blob_storage_account_url: str
-    blob_storage_container: str
-    blob_storage_access_key: str
+class Env:
+    data_lake_name: str
+    data_lake_access_key: str
+    data_lake_container: str
+    data_lake_folder: str
 
 @dataclass
 class Params:
@@ -14,5 +15,5 @@ class Params:
 
 @dataclass
 class IotSmartGridConfig:
-    settings: Settings
+    env: Env
     params: Params

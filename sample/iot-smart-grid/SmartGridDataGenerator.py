@@ -1,11 +1,14 @@
 import hydra
 from hydra.core.config_store import ConfigStore
 import asyncio
+import uuid
 import random
+import json
 from datetime import *
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 from marshmallow import fields
+from azure.storage.filedatalake import DataLakeServiceClient, DataLakeFileClient, FileSystemClient
 from config import *
 
 # ConfigStore for Hydra
@@ -31,13 +34,24 @@ class SmartGridData:
             mm_field=fields.DateTime(format='iso')
         ))
 
+# Write the Smart Grid data into the Data Lake
+async def writeDataToADLS(smartDataList, fsClient, dataLakeFolder) -> None:
+    filename = f'{dataLakeFolder}/smartGridData-{str(uuid.uuid4())}.json'
 
-async def writeDataToADLS(jsonDataList) -> None:
-    None
+    # Convert the smartDataList into a JSON format.
+    jsonData = "\n".join([data.to_json() for data in smartDataList])
+    jsonDataLen = len(jsonData)
 
-async def convertSmartGridDataToJSON(smartDataList) -> list:
-    return [data.to_json() for data in smartDataList]
-        
+    print(f'Writing file - {filename}')
+
+    try:
+        fileClient = fsClient.create_file(file=filename)
+        fileClient.append_data(jsonData, offset=0, length=jsonDataLen)
+        fileClient.flush_data(jsonDataLen)
+
+        print(f'Success - Writing file - {filename}')
+    except Exception as ex:
+        print(f'Failed - Writing file - {filename} - {ex}')
 
 # Create the Smart Grid data
 async def createSmartGridData(zipCodeList, meterIdRange, numOfMeterReading, sleepTimer) -> list:
@@ -58,25 +72,35 @@ async def createSmartGridData(zipCodeList, meterIdRange, numOfMeterReading, slee
     return data
 
 # Create the data, convert it into JSON and write to Data Lake (parquet file format).
-async def generateSmartGridData(zipCodeList, meterIdRange, numOfMeterReading, sleepTimer) -> None:
+async def generateSmartGridData(zipCodeList, meterIdRange, numOfMeterReading, sleepTimer, fsClient, dataLakeFolder) -> None:
     result = await createSmartGridData(zipCodeList, meterIdRange, numOfMeterReading, sleepTimer)
-    jsonItems = await convertSmartGridDataToJSON(result)
-    print(jsonItems)
-    await writeDataToADLS(jsonItems)
+    print('Result generated...')
+    await writeDataToADLS(result, fsClient, dataLakeFolder)
 
 # Create the data, convert it into JSON and write to Data Lake (parquet file format).
-async def asyncSmartGridData(zipCodeBatches, meterIdList, numOfMeterReading, maxSleepTimer) -> None:
+async def asyncSmartGridData(zipCodeBatches, meterIdList, numOfMeterReading, maxSleepTimer, fsClient, dataLakeFolder) -> None:
     # ASync to Generate and process the data.
-    await asyncio.gather(*[generateSmartGridData(b, meterIdList, numOfMeterReading, random.randint(1,maxSleepTimer)) for b in zipCodeBatches])
+    await asyncio.gather(*[generateSmartGridData(b, meterIdList, numOfMeterReading, random.randint(1,maxSleepTimer), fsClient, dataLakeFolder) for b in zipCodeBatches])
 
-@hydra.main(version_base=None, config_path="config", config_name="config")
+
+@hydra.main(config_path="config", config_name="config")
 def main(cfg:IotSmartGridConfig) -> None: 
     zipCodeList = list(ZIP_CODE_RANGE)
     meterIdList = list(METER_ID_RANGE)
 
+    # divide the zip code into batches
     zipCodeBatches = [zipCodeList[x:x+cfg.params.num_of_batches] for x in range(0, len(zipCodeList), cfg.params.num_of_batches)]
 
-    asyncio.run(asyncSmartGridData(zipCodeBatches, meterIdList, cfg.params.num_of_meter_reading, cfg.params.max_sleep_timer))
+    # Create a data lake connection
+    if len(zipCodeBatches) > 0:
+        connectionString = f'DefaultEndpointsProtocol=https;AccountName={cfg.env.data_lake_name};AccountKey={cfg.env.data_lake_access_key};EndpointSuffix=core.windows.net'
+        adlsClient = DataLakeServiceClient.from_connection_string(conn_str=connectionString)
+        fsClient = adlsClient.get_file_system_client(file_system=cfg.env.data_lake_container)
+
+        print(f'Connecting to: {cfg.env.data_lake_name} - Container: {cfg.env.data_lake_container} - Data Lake folder: {cfg.env.data_lake_folder}')
+
+        # Create and process the Smart Grid data - Async
+        asyncio.run(asyncSmartGridData(zipCodeBatches, meterIdList, cfg.params.num_of_meter_reading, cfg.params.max_sleep_timer, fsClient, cfg.env.data_lake_folder))
 
 if __name__ == "__main__":
     main()
