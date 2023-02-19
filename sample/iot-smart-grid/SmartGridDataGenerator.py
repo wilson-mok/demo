@@ -15,7 +15,7 @@ from config import *
 cs = ConfigStore.instance()
 cs.store(name="iot_smart_grid_config", node=IotSmartGridConfig)
 
-ZIP_CODE_RANGE = range(98001, 98101)
+ZIP_CODE_LIST = [98001,98002,98003,98004,98005,98006,98007,98008,98010,98011,98012,98014,98019,98020,98021,98022,98023,98024,98026,98027,98028,98029,98030,98031,98032,98033,98034,98036,98037,98038,98039,98040,98042,98043,98045,98047,98051,98052,98053,98055,98056,98057,98058,98059,98065,98070,98072,98074,98075,98077,98087,98092,98101,98102,98103,98104,98105,98106,98107,98108,98109,98110,98112,98115,98116,98117,98118,98119,98121,98122,98125,98126,98133,98134,98136,98144,98146,98148,98154,98155,98158,98164,98166,98168,98174,98177,98178,98188,98198,98199]
 METER_ID_RANGE = range(1,5)
 MEASUREMENT_MIN = 8.0
 MEASUREMENT_MAX = 20.0
@@ -85,11 +85,10 @@ async def asyncSmartGridData(zipCodeBatches, meterIdList, numOfMeterReading, max
 
 @hydra.main(config_path="config", config_name="config")
 def main(cfg:IotSmartGridConfig) -> None: 
-    zipCodeList = list(ZIP_CODE_RANGE)
     meterIdList = list(METER_ID_RANGE)
 
     # divide the zip code into batches
-    zipCodeBatches = [zipCodeList[x:x+cfg.params.num_of_batches] for x in range(0, len(zipCodeList), cfg.params.num_of_batches)]
+    zipCodeBatches = [ZIP_CODE_LIST[x:x+cfg.params.num_of_batches] for x in range(0, len(ZIP_CODE_LIST), cfg.params.num_of_batches)]
 
     # Create a data lake connection
     if len(zipCodeBatches) > 0:
