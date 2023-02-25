@@ -40,6 +40,16 @@ This is the second part of a two part series on Azure Synapse Analytics.
 
 Source code folder: [Azure Synapse - Data Warehousing](./Azure-Synapse/data-warehousing)
 
+## Azure Databricks | Getting started with Azure Databricks
+This is a 4 part series on Azure Databricks. In this session, I will discuss:
+   * Introduce Databricks and its features.
+   * Compare the Databricks Community editions and Azure Databricks Premium editions.
+   * Provide a brief tour of the Databricks UI. 
+   * A demo of using Databricks to query data using PySpark.
+
+At the end of this session, you will gain the basic understanding of what Databricks is and how it can be used for big data processing and analytics. 
+
+Source code folder: [Azure Databricks - Getting started](./Databricks/1-getting-started)
 
 
 
