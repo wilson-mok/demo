@@ -10,7 +10,6 @@ class Env:
 @dataclass
 class Params:
     num_of_batches: int
-    num_of_meter_reading: int
     max_sleep_timer: int
 
 @dataclass

@@ -4,5 +4,5 @@ defaults:
 
 params:
   num_of_batches: 10
-  num_of_meter_reading: 100
-  max_sleep_timer: 15
+  max_sleep_timer: 60
+  
