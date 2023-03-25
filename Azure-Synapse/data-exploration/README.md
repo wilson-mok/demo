@@ -9,7 +9,7 @@ The purpose of this article is to provide the setup instructions for the recorde
 In the end, you will be ready to conduct your own data exploration in Azure Synapse Analytics.
 
 ## Video
-Link: [Youtube - Dear Azure - Data Exploration with Azure Synapses | Azure Synapse best practice](https://www.youtube.com/watch?v=-OUDrRLJ3gY)
+Link: [Youtube - Dear Azure - Data Exploration with Azure Synapses | Azure Synapse best practice](https://youtu.be/-OUDrRLJ3gY)
 
 ## Setup
 ### Pre-req

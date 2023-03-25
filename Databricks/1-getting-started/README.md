@@ -8,7 +8,7 @@ The purpose of this README file is to provide the setup instructions for the rec
 In the end, you can use Databricks to create a dashboard in Databricks. 
 
 ## Video
-Link: TBD
+Link: [Youtube - Dear Azure - Azure Databricks | Getting Started](https://youtu.be/WWnSd7ydC78)
 
 ## Setup
 ### Pre-req
