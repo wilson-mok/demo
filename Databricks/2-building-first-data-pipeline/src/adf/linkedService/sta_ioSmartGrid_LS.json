@@ -5,7 +5,7 @@
 		"annotations": [],
 		"type": "AzureBlobFS",
 		"typeProperties": {
-			"url": "https://sbdemostaiotsmartgrid.dfs.core.windows.net/"
+			"url": "https://yourDataLake.dfs.core.windows.net/"
 		}
 	}
 }
