@@ -1,0 +1,21 @@
+{
+	"name": "demo_adb_iotSmartGrid__LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-2137535219426678.18.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/2417c759-47c7-4775-9dfd-dc67cc294fea/resourceGroups/sandbox-demo-iot-smart-grid/providers/Microsoft.Databricks/workspaces/sbdemoadbiotsmartgrid",
+			"instancePoolId": "0415-221919-risen9-pool-1qlte7x6",
+			"newClusterNumOfWorker": "1",
+			"newClusterSparkEnvVars": {
+				"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+			},
+			"newClusterVersion": "12.2.x-scala2.12",
+			"newClusterInitScripts": [],
+			"clusterOption": "Fixed"
+		}
+	}
+}

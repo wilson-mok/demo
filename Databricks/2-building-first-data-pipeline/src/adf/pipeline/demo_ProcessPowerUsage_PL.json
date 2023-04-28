@@ -1,0 +1,163 @@
+{
+	"name": "demo_ProcessPowerUsage_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Check folder",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "Set Folder Path",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "00:05:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "demo_PowerUsage_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderpath": {
+								"value": "@concat('iotSmartGridData/',variables('folderPath'))",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"exists"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "JsonReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Set Folder Path",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "folderPath",
+					"value": {
+						"value": "@{formatDateTime(subtractFromTime(pipeline().parameters.triggerStartTime,15,'Minute'),'yyyy/MM/dd/HHmmss')}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Check folder exists",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Check folder",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@activity('Check folder').output.exists",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "FileNotFound",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "File not found",
+								"errorCode": "404"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "process data",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.0:15:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/demo@wdotcode.com/iotPowerConsumption_demo2-1",
+								"baseParameters": {
+									"landing_folder": {
+										"value": "@variables('folderPath')",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "demo_adb_iotSmartGrid__LS",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Refresh Dashboard",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "process data",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/demo@wdotcode.com/iotPowerConsumption_demo2-2"
+							},
+							"linkedServiceName": {
+								"referenceName": "demo_adb_iotSmartGrid__LS",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"concurrency": 1,
+		"parameters": {
+			"triggerStartTime": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"folderPath": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-04-16T01:47:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

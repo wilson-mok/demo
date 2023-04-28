@@ -1,0 +1,28 @@
+{
+	"name": "demo_ProcessPowerUsage_TR",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "demo_ProcessPowerUsage_PL",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"triggerStartTime": "@{trigger().outputs.windowStartTime}"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Minute",
+			"interval": 15,
+			"startTime": "2023-01-01T00:00:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 1,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			},
+			"dependsOn": []
+		}
+	}
+}
