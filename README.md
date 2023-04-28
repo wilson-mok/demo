@@ -51,5 +51,13 @@ At the end of this session, you will gain the basic understanding of what Databr
 
 Source code folder: [Azure Databricks - Getting started](./Databricks/1-getting-started)
 
+## Azure Databricks | Azure Data Factory | Building your first data pipeline
+This session is the second installment of a 4-part series. In this session, I will discuss: 
+   * Introduce Delta Lake format.
+   * Discuss different types of Databricks clusters and assoicated costs.
+   * Introduce Azure Data Factory and how we can schedule your data pipeline.
+   * A demo of using Azure Data Factory and Databricks to schedule your data pipeline.
 
+At the end of this session, you will be able to create your own data pipeline and create a schedule for it to run automatically using Azure Databricks and Azure Data Factory.
 
+Source code folder: [Azure Databricks - Building your first pipeline](./Databricks/1-building-first-data-pipeline)
