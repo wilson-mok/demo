@@ -60,4 +60,4 @@ This session is the second installment of a 4-part series. In this session, I wi
 
 At the end of this session, you will be able to create your own data pipeline and create a schedule for it to run automatically using Azure Databricks and Azure Data Factory.
 
-Source code folder: [Azure Databricks - Building your first pipeline](./Databricks/1-building-first-data-pipeline)
+Source code folder: [Azure Databricks - Building your first pipeline](./Databricks/2-building-first-data-pipeline)
