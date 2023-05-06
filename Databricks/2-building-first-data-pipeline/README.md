@@ -8,7 +8,7 @@ The purpose of this README file is to provide the setup instructions for the rec
 After this session, you will be able to create your own data pipeline in Azure Databricks and create a schedule for it to run automatically with Azure Data Factory.
 
 ## Video
-Link: TBD
+Link: [Youtube - Dear Azure - Azure Databricks | Azure Data Factory | Building your first data pipeline](https://youtu.be/YDGA67NgE1s) 
 
 ## Setup
 ### Pre-req
