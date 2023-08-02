@@ -1,0 +1,176 @@
+{
+	"name": "GeneralData_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "ZipCode - Landing to Bronze",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_bronze_zipCodeGeoLocation",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "ZipCode - Bronze to Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "ZipCode - Landing to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_silver_zipCodeGeoLocation",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"bronze_processing_date": {
+							"value": "@pipeline().parameters.processing_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "ZipCode - Silver to Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "ZipCode - Bronze to Silver",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_gold_DimServiceLocation",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"silver_processing_date": {
+							"value": "@pipeline().parameters.processing_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "DimDate - Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_gold_DimDate",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"startDate": "2023-01-01",
+						"endDate": "2023-12-31"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "DimTime - Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "DimDate - Gold",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_gold_DimTime",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"processing_date": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-29T02:18:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

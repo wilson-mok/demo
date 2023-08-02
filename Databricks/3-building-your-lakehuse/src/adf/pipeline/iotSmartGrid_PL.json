@@ -1,0 +1,230 @@
+{
+	"name": "iotSmartGrid_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Power Consumption - Landing to Bronze",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-1_bronze_iotPowerConsumption",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"_landing_folder": {
+							"value": "@pipeline().parameters.landing_folder",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "PC - Bronze to Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Power Consumption - Landing to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-1_silver_iotPowerConsumption",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"bronze_processing_date": {
+							"value": "@pipeline().parameters.processing_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "PC - Silver to Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "PC - Bronze to Silver",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "PM - Silver - Gold",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-2_gold_FactPowerConsumption",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"silver_processing_date": {
+							"value": "@pipeline().parameters.processing_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Power Meter - Landing to Bronze",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_bronze_powerMeter",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "PM - Bronze to Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Power Meter - Landing to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_silver_powerMeter",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"bronze_processing_date": {
+							"value": "@pipeline().parameters.processing_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "PM - Silver - Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "PM - Bronze to Silver",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_IotPowerConsumption/demo3/demo3-0_gold_DimPowerMeter",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"silver_processing_date": {
+							"value": "@pipeline().parameters.processing_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "demo_adb_iotSmartGrid_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"processing_date": {
+				"type": "string",
+				"defaultValue": "2023-07-29"
+			},
+			"landing_folder": {
+				"type": "string",
+				"defaultValue": "2023/01/01/*"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-29T02:26:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

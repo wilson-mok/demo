@@ -1,0 +1,9 @@
+{
+	"name": "sbdemo3adfiotsmartgrid",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bf2f6647-361c-4a20-aba5-77e9c268f54b",
+		"tenantId": "63578c00-1382-4da4-9312-f96bc6e6d28c"
+	}
+}
