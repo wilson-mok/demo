@@ -24,8 +24,8 @@ For this demo, we require:
 1. Create the 'landing', 'bronze', 'silver' and 'gold' containers in the Storage account.
    a. The landing container will store all the data files. Please copy the folder structure from data\data-lake\landing\.
    a. The Bronze, Silver and Gold containers store the delta files.
-1. Configure Azure Databricks with Unity Catalog enabled: [link] (https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/get-started)
-1. Connect the Azure Stroage as an External Storage: [link] (https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/manage-external-locations-and-credentials)
+1. Configure Azure Databricks with Unity Catalog enabled: [Microsoft Learn - Get started using Unity Catalog](https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/get-started)
+1. Connect the Azure Stroage as an External Storage: [Microsoft Learn - Manage external locations and storage credentials](https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/manage-external-locations-and-credentials)
 1. Create a group in Databricks named 'demo_group'. Add your user id to this group.
 
 ## Code and scripts
