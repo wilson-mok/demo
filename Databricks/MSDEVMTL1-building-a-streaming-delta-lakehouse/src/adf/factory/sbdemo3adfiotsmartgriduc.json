@@ -1,0 +1,9 @@
+{
+	"name": "sbdemo3adfiotsmartgriduc",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f4333057-efde-49b8-962a-25e1d577d89f",
+		"tenantId": "63578c00-1382-4da4-9312-f96bc6e6d28c"
+	}
+}

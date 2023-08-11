@@ -1,0 +1,133 @@
+{
+	"name": "master-iotSmartGrid_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "CommonData",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CommonData_PL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "ReferenceData",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "CommonData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ReferenceData_PL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "iotPowerMeter",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "iotPowerMeter_PL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "iotPowerConsumption",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ReferenceData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "iotPowerMeter",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "iotPowerConsumption_PL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"concurrency": 1,
+		"parameters": {
+			"dataLakeName": {
+				"type": "string",
+				"defaultValue": "sbdemostaiotsmartgriduc"
+			},
+			"env": {
+				"type": "string",
+				"defaultValue": "dev"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-08-07T21:28:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

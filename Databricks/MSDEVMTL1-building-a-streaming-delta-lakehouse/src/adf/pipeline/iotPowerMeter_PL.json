@@ -1,0 +1,139 @@
+{
+	"name": "iotPowerMeter_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "PowerMeter - L2B",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:15:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/MSDEVMTL - Demo 1/demo1-0_bronze_powerMeter",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ADB_iotSmartGridUC_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "PowerMeter - B2S",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "PowerMeter - L2B",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:15:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/MSDEVMTL - Demo 1/demo1-0_silver_powerMeter",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ADB_iotSmartGridUC_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "PowerMeter - S2G",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "PowerMeter - B2S",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:15:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/MSDEVMTL - Demo 1/demo1-0_gold_dimPowerMeter",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ADB_iotSmartGridUC_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"dataLakeName": {
+				"type": "string",
+				"defaultValue": "sbdemostaiotsmartgriduc"
+			},
+			"env": {
+				"type": "string",
+				"defaultValue": "dev"
+			}
+		},
+		"folder": {
+			"name": "iotSmartGrid"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-08-07T15:42:29Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

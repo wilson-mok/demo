@@ -1,10 +1,10 @@
 # Azure Databricks - Building your Lakehouse
 The purpose of this README file is to provide the setup instructions for the recorded demo on
 
-   * Create a Lakehouse using Medllion architecture.
-   * Design a shared data model in the gold layer for mutliple data projects to consume.
+   * Create a Lakehouse using Medallion architecture.
+   * Design a shared data model in the gold layer for multiple data projects to consume.
    * Implement the Azure Data Factory pipeline to automate orchestrate the Databricks notebooks.
-   * Use Databricks SQL to connect to Power BI for reporting. 
+   * Use Databricks SQL to connect to Power BI for reporting.
 
 After this session, you will be able to create your own Lakehouse using Azure Databricks and Azure Data Factory.
 
