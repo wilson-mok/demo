@@ -16,8 +16,8 @@ For this demo, we require:
 1. Azure Data Factory
 1. Azure Storage with hierarchical namespace enabled (Data Lake gen 2)
 1. Create the 'landing', 'bronze', 'silver' and 'gold' containers in the Storage account.
-   a. The landing container will store all the data files. Please copy the folder structure from data\data-lake\landing\.
-   a. The Bronze, Silver and Gold containers store the delta files. 
+     - The landing container will store all the data files. Please copy the folder structure from data\data-lake\landing\.
+     - The Bronze, Silver and Gold containers store the delta files. 
 
 ## Code and scripts
 | Folder/file | Description |
