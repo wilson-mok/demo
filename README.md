@@ -1,7 +1,16 @@
 # Demo
 In this repo, you will find the instructions and source codes for my presentations and demos.
 
-# Presentation
+# Presentations
+
+## Azure Databricks | Azure Data Factory | Building streaming data pipelines with Medallion architecture
+We have reached the fourth and final part of the Azure Databricks series. In this session, I will cover:
+   * Design and implement streaming pipelines using Azure Databricks and Azure Data Factory.
+   * A quick introduction to Delta Live Table in Azure Databricks.
+
+After this session, you will be able to create your own streaming data pipeline for your Lakehouse using Azure Databricks and Azure Data Factory.
+
+Source code folder: [Azure Databricks - Building a streaming data pipeline](./Databricks/4-building-streaming-pipeline/)
 
 ## Azure Databricks | Azure Data Factory | Develop data pipelines for a Medallion delta lake using Azure Databricks and Azure Data Factory
 In this session, I will cover:
@@ -11,7 +20,7 @@ In this session, I will cover:
 
 After this session, you will be able to create your own streaming solution using Azure Databricks and Azure Data Factory.
 
-Source cdoe folder: [Azure Databricks - MSDEVMTL1 - Develop data pipelines for a Medallion Delta Lake](./Databricks/MSDEVMTL1-building-a-streaming-delta-lakehouse/)
+Source code folder: [Azure Databricks - MSDEVMTL1 - Develop data pipelines for a Medallion Delta Lake](./Databricks/MSDEVMTL1-building-a-streaming-delta-lakehouse/)
 
 
 ## Azure Databricks | Building a Lakehouse | Medallion architecture

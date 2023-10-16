@@ -1,0 +1,104 @@
+{
+	"name": "CommonData_PL",
+	"properties": {
+		"activities": [
+			{
+				"name": "DimDate - G",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.0:15:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_iotPowerConsumption/demo4/demo1-0_gold_dimDate",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"startDate": "2023-01-01",
+						"endDate": "2023-12-31",
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ADB_iotSmartGridUC_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "DimTime - G",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "DimDate - G",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.0:15:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/demo_iotPowerConsumption/demo4/demo1-0_gold_dimTime",
+					"baseParameters": {
+						"_pipeline_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"dataLakeName": {
+							"value": "@pipeline().parameters.dataLakeName",
+							"type": "Expression"
+						},
+						"env": {
+							"value": "@pipeline().parameters.env",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ADB_iotSmartGridUC_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"processing_date": {
+				"type": "string",
+				"defaultValue": "2023-08-07"
+			},
+			"dataLakeName": {
+				"type": "string",
+				"defaultValue": "sbdemostaiotsmartgriduc"
+			},
+			"env": {
+				"type": "string",
+				"defaultValue": "dev"
+			}
+		},
+		"folder": {
+			"name": "Common"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-09-29T05:49:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -25,5 +25,5 @@ For this demo, we require:
 | Folder/file | Description |
 | --- | --- |
 | src/adf | This folder contains all the ADF code. You need to make changes to the Linked services using your Azure resources. | 
-| src/databricks/iotPowerConsumption_demo2-2.dbc | This file contains all the pyspark scripts. You need to import this file into Databricks. |
+| src/databricks/iotPowerConsumption_demo3.dbc | This file contains all the pyspark scripts. You need to import this file into Databricks. |
 | data/data-lake/landing | This folder contains the source data files used in the demo. This data is created on for Jan 1, 2023 and sent to the Data Lake based on 15 min interval. |

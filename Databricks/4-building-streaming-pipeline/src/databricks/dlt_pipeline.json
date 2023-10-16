@@ -1,0 +1,29 @@
+{
+    "id": "67490774-9a71-4f6f-ac0a-229b6642b5af",
+    "pipeline_type": "WORKSPACE",
+    "clusters": [
+        {
+            "label": "default",
+            "num_workers": 1
+        }
+    ],
+    "development": true,
+    "continuous": false,
+    "channel": "CURRENT",
+    "photon": false,
+    "libraries": [
+        {
+            "notebook": {
+                "path": "/Shared/demo_iotPowerConsumption/demo4/demo2-1-dlt-iotPowerConsumption"
+            }
+        }
+    ],
+    "name": "PL_iotSmartGrid_iotPowerConsumption",
+    "edition": "ADVANCED",
+    "catalog": "dlt",
+    "configuration": {
+        "dataLakeName": "sbdemostaiotsmartgriduc"
+    },
+    "target": "dev",
+    "data_sampling": false
+}
