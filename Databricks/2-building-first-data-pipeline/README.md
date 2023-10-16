@@ -17,8 +17,8 @@ For this demo, we require:
 1. Azure Data Factory
 1. Azure Storage with hierarchical namespace enabled (Data Lake gen 2)
 1. Create the 'landing' and 'processed' containers in the Storage account.
-   a. The landing container will store all the source data files (JSON format).
-   a. The processed container will store the output data stored in delta lake format.
+    - The landing container will store all the source data files (JSON format).
+    - The processed container will store the output data stored in delta lake format.
 
 ## Code and scripts
 | Folder/file | Description |
