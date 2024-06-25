@@ -1,18 +1,22 @@
-# Demo
-In this repo, you will find the instructions and source codes for my presentations and demos.
+# Presentations and Demos
+In this repo, you will find the recording to my presentations. Additionally, you can find all the source codes and data used in my demos.
 
-# Presentations
+# Presentation
 
-## Azure Databricks | Azure Data Factory | Building streaming data pipelines with Medallion architecture
-We have reached the fourth and final part of the Azure Databricks series. In this session, I will cover:
-   * Design and implement streaming pipelines using Azure Databricks and Azure Data Factory.
-   * A quick introduction to Delta Live Table in Azure Databricks.
+## EDMDATA | Azure Synapse Analytics | Conduct data analysis using Serverless SQL and Serverless Spark
 
-After this session, you will be able to create your own streaming data pipeline for your Lakehouse using Azure Databricks and Azure Data Factory.
+In this session, I will cover:
 
-Source code folder: [Azure Databricks - Building a streaming data pipeline](./Databricks/4-building-streaming-pipeline/)
+* Overview of Azure Synapse Analytics
+* What is Serverless SQL and Serverless Spark and the benefits of using it.
+* Explore the importance of Data Analysis - Why accurate and relevant data are important?
+* Demo: Serverless SQL and Serverless Spark to review, validate and create visualization using the sample data.
 
-## Azure Databricks | Azure Data Factory | Develop data pipelines for a Medallion delta lake using Azure Databricks and Azure Data Factory
+After this session, you will be able to use Azure Synapse Analytics to conduct your own data analysis for a better result.
+
+Source code folder: [EDMDATA 2024 - Conduct data analysis using Azure Synapse Analytics](./2024/EDMDATA/Synapse-Serverless-Data-Analysis/)
+
+## MSDEVMTL Azure Databricks | Azure Data Factory | Develop data pipelines for a Medallion delta lake using Azure Databricks and Azure Data Factory
 In this session, I will cover:
    * What is a Medallion delta lake architecture
    * Design and demo AutoLoader and structure streaming (Micro-batching) for batch processing using Azure Data Factory and Azure Databricks.
@@ -22,8 +26,16 @@ After this session, you will be able to create your own streaming solution using
 
 Source code folder: [Azure Databricks - MSDEVMTL1 - Develop data pipelines for a Medallion Delta Lake](./Databricks/MSDEVMTL1-building-a-streaming-delta-lakehouse/)
 
+## Part 4: Azure Databricks | Azure Data Factory | Building streaming data pipelines with Medallion architecture
+We have reached the fourth and final part of the Azure Databricks series. In this session, I will cover:
+   * Design and implement streaming pipelines using Azure Databricks and Azure Data Factory.
+   * A quick introduction to Delta Live Table in Azure Databricks.
 
-## Azure Databricks | Building a Lakehouse | Medallion architecture
+After this session, you will be able to create your own streaming data pipeline for your Lakehouse using Azure Databricks and Azure Data Factory.
+
+Source code folder: [Azure Databricks - Building a streaming data pipeline](./Databricks/4-building-streaming-pipeline/)
+
+## Part 3: Azure Databricks | Building a Lakehouse | Medallion architecture
 This session is the third installment of a four-part series. In this session, I will discuss: 
    * Create a Lakehouse with Medallion architecture.
    * Create a data model in the gold layer to share with multiple projects.
@@ -35,7 +47,7 @@ After this session, you will be able to create your own Lakehouse using Azure Da
 Source code folder: [Azure Databricks - Building a Lakehouse](./Databricks/3-building-your-lakehuse/)
 
 
-## Azure Databricks | Azure Data Factory | Building your first data pipeline
+## Part 2: Azure Databricks | Azure Data Factory | Building your first data pipeline
 This session is the second installment of a four-part series. In this session, I will discuss: 
    * Introduce Delta Lake format.
    * Discuss different types of Databricks clusters and assoicated costs.
@@ -46,7 +58,7 @@ At the end of this session, you will be able to create your own data pipeline an
 
 Source code folder: [Azure Databricks - Building your first pipeline](./Databricks/2-building-first-data-pipeline)
 
-## Azure Databricks | Getting started with Azure Databricks
+## Part 1: Azure Databricks | Getting started with Azure Databricks
 This is a four-part series on Azure Databricks. In this session, I will discuss:
    * Introduce Databricks and its features.
    * Compare the Databricks Community editions and Azure Databricks Premium editions.
