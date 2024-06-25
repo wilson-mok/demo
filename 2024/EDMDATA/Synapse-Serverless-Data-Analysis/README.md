@@ -22,7 +22,7 @@ For this demo, we require:
 ## Code and scripts
 | Folder/file | Description |
 | --- | --- |
-| [NY Taxi - Sample data](../../../sample/test-data/nycTripYellow2019Jan.snappy.parquet) | NY Taxi Sample Data. Dataset Reference: [Kaggle](https://www.kaggle.com/datasets/microize/newyork-yellow-taxi-trip-data-2020-2019?select=yellow_tripdata_2019-01.csv) |
+| [NY Taxi - Sample data](../../../sample/test-data/nycTripYellow2019Jan/) | Download all 4 NY Taxi sample files. Dataset Reference: [Kaggle](https://www.kaggle.com/datasets/microize/newyork-yellow-taxi-trip-data-2020-2019?select=yellow_tripdata_2019-01.csv) |
 | [Demo 1 - Create Dataset - SQL](./src/d1_create_sql_dataset.sql) | This SQL script will create the Schema and External Table from the parquet file. |
 | [Demo 1 - Analyze Dataset - SQL](./src/d1_analysis_sql_dataset.sql) | This SQL script illustrates the steps to conduct a data analysis using Serverless SQL. |
 | [Demo 2 - Create & Analyze Dataset - PySpark](./src/d2_analysis_pyspark_dataset.ipynb) | This PySpark script will examine, clean the data and create a Table in the Lake DB. |
