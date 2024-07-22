@@ -7,7 +7,7 @@ The purpose of this README file is to provide the setup instructions for the rec
 After this session, you will be able to create your own streaming data pipeline for your Lakehouse using Azure Databricks and Azure Data Factory.
 
 ## Video
-Link: [Youtube - Dear Azure - Azure Databricks | Azure Data Factory | Building a Streaming Data Pipeline](https://youtu.be/R8Sd2_75Fi8) 
+Link: [Youtube - Dear Azure - Azure Databricks | Azure Data Factory | Building a Streaming Data Pipeline](https://youtu.be/R8Sd2_75Fi8?list=PLd5EI5E5dBo5Pj2v10QN_orpbY7QBYQxF) 
 
 ## Setup
 ### Pre-req
