@@ -10,7 +10,7 @@ The purpose of this article is to provide the setup instructions for the recorde
 After this session, you will be able to use Azure Synapse Analytics to conduct your own data analysis for a better result.
 
 ## Video
-Link: TBD
+Link: [Youtube - Conduct Data Analysis using Azure Synapse Analytics | Serverless SQL | Serverless Spark](https://youtu.be/-Jfb40xN7uU?list=PLd5EI5E5dBo5Pj2v10QN_orpbY7QBYQxF)
 
 ## Setup
 ### Pre-req

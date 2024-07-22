@@ -11,7 +11,7 @@ In the end, you will be ready to create your own data warehousing solution in Az
 
 
 ## Video
-Link: [Youtube - Dear Azure - Data Warehousing with Azure Synapses | Azure Synapse best practice | Dedicated SQL Pool](https://youtu.be/DOF4fEQSseQ)
+Link: [Youtube - Dear Azure - Data Warehousing with Azure Synapses | Azure Synapse best practice | Dedicated SQL Pool](https://youtu.be/DOF4fEQSseQ?list=PLd5EI5E5dBo5Pj2v10QN_orpbY7QBYQxF)
 
 ## Setup
 ### Pre-req

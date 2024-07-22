@@ -9,7 +9,7 @@ The purpose of this article is to provide the setup instructions for the recorde
 At the end of this session, you will be ready to deploy your data pipelines from development to production.
 
 ## Video
-Link: [Youtube - Dear Azure - CI/CD with Azure Data Factory | ADF Deployment](https://youtu.be/r5sxL99UrJk)
+Link: [Youtube - Dear Azure - CI/CD with Azure Data Factory | ADF Deployment](https://youtu.be/r5sxL99UrJk?list=PLd5EI5E5dBo5Pj2v10QN_orpbY7QBYQxF)
 
 ## Setup
 ### Pre-req
