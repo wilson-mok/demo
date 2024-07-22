@@ -9,7 +9,7 @@ The purpose of this README file is to provide the setup instructions for the rec
 After this session, you will be able to create your own Lakehouse using Azure Databricks and Azure Data Factory.
 
 ## Video
-Link: [Youtube - Dear Azure - Azure Databricks | Azure Data Factory | Building a Lakehouse - Medallion Architecture](https://youtu.be/_zKHLjDfXes) 
+Link: [Youtube - Dear Azure - Azure Databricks | Azure Data Factory | Building a Lakehouse - Medallion Architecture](https://youtu.be/_zKHLjDfXes?list=PLd5EI5E5dBo5Pj2v10QN_orpbY7QBYQxF) 
 
 ## Setup
 ### Pre-req
