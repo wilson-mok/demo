@@ -25,7 +25,7 @@ For this demo, we require:
 | Services | Detail | Documentation |
 | --- | --- | --- |
 | Microsoft Fabric | Using Azure Fabric Capacity with F64 SKU | [Link](https://learn.microsoft.com/en-us/fabric/admin/capacity-settings?tabs=fabric-capacity&wt.mc_id=MVP_365600) |
-| Azure SQL Database | | [Link](https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal&wt.mc_id=MVP_365600)
+| Azure SQL Database | Basic DTU Tier | [Link](https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal&wt.mc_id=MVP_365600)
 | Azure OpenAI | Deploy text-embedding-3-small and gpt-4 models | [Link](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal&wt.mc_id=MVP_365600) |
 | Azure AI Search | Setup with Basic Pricing tier | [Link](https://learn.microsoft.com/en-us/azure/search/search-create-service-portal?wt.mc_id=MVP_365600) |
 | Azure Key Vault | Stored the secret for Azure OpenAI and AI Search keys | [Create](https://learn.microsoft.com/en-us/azure/key-vault/general/quick-create-portal?wt.mc_id=MVP_365600), [Add Secret](https://learn.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal?wt.mc_id=MVP_365600) |
