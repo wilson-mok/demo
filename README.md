@@ -3,7 +3,7 @@ In this repo, you will find the recording to my presentations. Additionally, you
 
 # Presentation
 
-## Dear Azure - Let's Learn Azure & AI | Building an AI-Powered Chat Application using Microsoft Fabric and Azure OpenAI
+## Dear Azure | Microsoft Fabric and Azure Open AI |  Let's Learn Azure & AI - Building an AI-Powered Chat Application using Microsoft Fabric and Azure OpenAI
 
 In this session, Roman and I will cover: 
 
