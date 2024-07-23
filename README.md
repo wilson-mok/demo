@@ -3,6 +3,20 @@ In this repo, you will find the recording to my presentations. Additionally, you
 
 # Presentation
 
+## Dear Azure - Let's Learn Azure & AI | Building an AI-Powered Chat Application using Microsoft Fabric and Azure OpenAI
+
+In this session, Roman and I will cover: 
+
+* Introduction to Microsoft Fabric.
+* Explore how to prepare data for AI Application using Dataflow Gen 2.
+* Dive into the process of transforming your data into knowledge using Retrieval-Augmented Generation (RAG).
+* Leverage SynapseML with Azure OpenAI and AI Search to enable chat interactions.
+* Demo: Create an end-to-end solution using Microsoft Fabric to create an intelligent chat application.
+
+After this session, you will be able to use Microsoft Fabric and Azure AI services to transform your data into AI ready chat application.
+
+Source code folder: [Dear Azure 2024 - Building an AI-Powered Chat Application using Microsoft Fabric and Azure OpenAI](./2024/DearAzure/Microsoft-Fabric-AI-Chatbot/)
+
 ## EDMDATA | Azure Synapse Analytics | Conduct data analysis using Serverless SQL and Serverless Spark
 
 In this session, I will cover:
