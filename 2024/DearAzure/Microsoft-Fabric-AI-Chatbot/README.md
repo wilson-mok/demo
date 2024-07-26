@@ -34,6 +34,9 @@ For this demo, we require:
 
 ![Microsoft Fabric - integration](./images/MS-Fabric-AI-Chat.png)  
 
+### Bonus Points
+
+You can utilize the Playground Chat in Azure OpenAI Studio to get a full chat experience. To do so, please follow the instruction here: [link](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/use-your-data?tabs=ai-search%2Ccopilot?wt.mc_id=MVP_365600).
 
 ## Code and scripts
 
