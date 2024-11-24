@@ -1,13 +1,13 @@
 # Azure Synapse Analytics - Data Analysis
 
-The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo includes:
+The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo include:
 
 * Overview of Azure Synapse Analytics
-* What is Serverless SQL and Serverless Spark and the benefits of using it.
+* What are Serverless SQL and Serverless Spark and the benefits of using it.
 * Explore the importance of Data Analysis - Why accurate and relevant data are important?
 * Demo: Serverless SQL and Serverless Spark to review, validate and create visualization using the sample data.
 
-After this session, you will be able to use Azure Synapse Analytics to conduct your own data analysis for a better result.
+After this session, you will be able to use Azure Synapse Analytics to conduct your own data analysis to get better results.
 
 ## Video
 Link: [Youtube - Conduct Data Analysis using Azure Synapse Analytics | Serverless SQL | Serverless Spark](https://youtu.be/-Jfb40xN7uU?list=PLd5EI5E5dBo5Pj2v10QN_orpbY7QBYQxF)
@@ -26,4 +26,4 @@ For this demo, we require:
 | [Demo 1 - Create Dataset - SQL](./src/d1_create_sql_dataset.sql) | This SQL script will create the Schema and External Table from the parquet file. |
 | [Demo 1 - Analyze Dataset - SQL](./src/d1_analysis_sql_dataset.sql) | This SQL script illustrates the steps to conduct a data analysis using Serverless SQL. |
 | [Demo 2 - Create & Analyze Dataset - PySpark](./src/d2_analysis_pyspark_dataset.ipynb) | This PySpark script will examine, clean the data and create a Table in the Lake DB. |
-| [Demo 2 - Serverless SQL to access Lake DB](./src/d2_query_sql_lakedb.sql) | This SQL script illustrates the ability for Serverless SQL to query Lake Database. |
+| [Demo 2 - Serverless SQL to access Lake DB](./src/d2_query_sql_lakedb.sql) | This SQL script illustrates the ability of Serverless SQL to query Lake Database. |
