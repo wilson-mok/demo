@@ -9,7 +9,7 @@ The purpose of this article is to provide the setup instructions for the recorde
 After this session, you will be able to use PySpark for your data projects.
 
 ## Video
-Link: TBD
+Link: [Practical Guide to Synapse Spark in Azure Synapse Analytics](https://youtu.be/e17DIBjlUmY?si=I3FjO0LAi0wfo5Ik)
 
 ## Setup
 ### Pre-req
