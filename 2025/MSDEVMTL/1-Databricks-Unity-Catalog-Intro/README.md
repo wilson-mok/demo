@@ -8,6 +8,9 @@ The purpose of this article is to provide the setup instructions for the recorde
 
 After this session, you will be able to improve your data governance using Azure Databricks.  
 
+## Presentation & Video
+* Presentation: [Azure Databricks - Intro to Unity Catalog PDF](./Azure%20Databricks%20-%20Intro%20to%20UC.pdf)
+
 ## Setup
 ### Pre-req
 For this demo, we require: 
