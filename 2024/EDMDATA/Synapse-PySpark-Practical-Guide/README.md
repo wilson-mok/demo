@@ -21,6 +21,6 @@ For this demo, we require:
 ## Code and scripts
 | Folder/file | Description |
 | --- | --- |
-| [Data - NYC Taxi Payment Type](../../../sample/test-data/nycTripYellowPaymentType/nycTripYellowPaymentType.csv) | Download this csv files and store it in the 'nycTripYellowPaymentType' folder under the 'demo' container. |
+| [Data - NYC Taxi Payment Type](../../../demo-data/test-data/nycTripYellowPaymentType/nycTripYellowPaymentType.csv) | Download this csv files and store it in the 'nycTripYellowPaymentType' folder under the 'demo' container. |
 | [Demo 3-1 - Extract NYC Yellow Taxi data](./src/d3-1_Extract%20NYC%20Yellow%20Taxi.ipynb) | This PySpark script will extract a copy of the NYC Yellow Taxi data from Azure Open Data Storage |
 | [Demo 3-2 - Practical Guide to PySpark](./src/d3-2_Practical%20Guide%20to%20PySpark.ipynb) | In this PySpark file, we will cover both Basic and Complex operations. Learn about Joins, Windows function, Partitioning and how to use Spark UI to help identify bottlenecks. |

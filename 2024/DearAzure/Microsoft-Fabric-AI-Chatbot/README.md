@@ -42,6 +42,6 @@ You can utilize the Playground Chat in Azure OpenAI Studio to get a full chat ex
 
 | Folder/file | Description |
 | --- | --- |
-| [Demo Sales database](../../../sample/test-data/WideWorldImporters/demo-data-202405.sql) | Demo Sales Orders and OrderLines tables. This script include the table creation and insert statements. Please note that the schema and table name have changed to Demo.Sales_202405 and Demo.SaleLines_202405. |
+| [Demo Sales database](../../../demo-test/test-data/WideWorldImporters/demo-data-202405.sql) | Demo Sales Orders and OrderLines tables. This script include the table creation and insert statements. Please note that the schema and table name have changed to Demo.Sales_202405 and Demo.SaleLines_202405. |
 | [Demo 1 - Get and Prepare data - Dataflow Gen2](./src/DataflowGen2-template/) | To import the Dataflow Gen2, please follow the [instruction](https://learn.microsoft.com/en-us/fabric/data-factory/move-dataflow-gen1-to-dataflow-gen2?wt.mc_id=MVP_365600) starting at step 5.|
 | [Demo 2 - Embedding data and AI-Chat interaction](./src/Notebook/) | To import the Notebook, please follow the [instruction](https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook#import-existing-notebooks?wt.mc_id=MVP_365600) |
