@@ -29,7 +29,7 @@ All the scripts can be found under the [src directory](src/).
 | 4_gold_*.py | Execute the scripts after the silver layer is created successfully. This will create the gold layer of the delta lake (Medallion Architecture). |
 | 5__admin_setup_bu_ops.py | This script will deploy catalog for Operations team to use. Run this script in the Admin workspace. |
 | 5_bu_ops_projectNextus_setup.py | This script uses the data from the gold layer (Ent Data) and combine with data from the Project Nexus. Some of the steps require you to 'Create or modify table' using the Databricks UI. This will create a Managed Table. Another step will require you to 'Upload files to a volume' using the Databricks UI to utilize the Managed Volume. |
-| 6_admin_audit_logs.py | This scripts uses the `system.acces.audit` table (preview) to compliance reporting. This script is to be ran in the Admin workspace. |
+| 6_admin_audit_logs.py | This scripts uses the `system.access.audit` table (preview) to compliance reporting. This script is to be ran in the Admin workspace. |
 
 | Data Folder/file | Description |
 | --- | --- |
