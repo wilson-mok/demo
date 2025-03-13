@@ -1,4 +1,5 @@
-﻿768060,237870,78,"""The Gu"" red shirt XML tag t-shirt (White) XS",84,18.00,15.000,226.80,1738.80,924.00
+﻿InvoiceLineID,InvoiceID,StockItemID,Description,Quantity,UnitPrice,TaxRate,TaxAmount,TotalPrice,LineProfit
+768060,237870,78,"""The Gu"" red shirt XML tag t-shirt (White) XS",84,18.00,15.000,226.80,1738.80,924.00
 768061,237871,184,Shipping carton (Brown) 305x305x305mm,200,3.50,15.000,105.00,805.00,320.00
 768062,237872,193,Black and orange glass with care despatch tape 48mmx75m,120,3.70,15.000,66.60,510.60,252.00
 768063,237873,204,Tape dispenser (Red),50,32.00,15.000,240.00,1840.00,750.00
