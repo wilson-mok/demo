@@ -30,4 +30,4 @@ All the scripts can be found under the [src directory](src/).
 | --- | --- |
 | [Genie - Sample Customers data](../../../demo-data/test-data/sample_customers_data.csv) | This file contains the Customers data for the Genie demo. Download this file and upload to Databricks using [File Upload UI](https://learn.microsoft.com/en-us/azure/databricks/ingestion/file-upload/upload-data?wt.mc_id=MVP_365600). |
 | [Genie - Sample Invoices data](../../../demo-data/test-data/sample_invoices_data.csv) | This file contains the Invoices data for the Genie demo. Download this file and upload it to Databricks. |
-| [Genie - Sample Invoice Linesdata](../../../demo-data/test-data/sample_invoices_data.csv) | This file contains the Invoice Lines data for the Genie demo. Download this file and upload it to Databricks. |
+| [Genie - Sample Invoice Lines data](../../../demo-data/test-data/sample_invoices_data.csv) | This file contains the Invoice Lines data for the Genie demo. Download this file and upload it to Databricks. |
