@@ -11,6 +11,7 @@ After this session, you will be able utilize Databricks for your RAG workflow.
 
 ## Presentation & Video
 * Presentation: [Azure Databricks - Vector Search PDF](./Azure%20Databricks%20-%20Vector%20Search.pdf)
+* Video Recording: [YouTube - Simplify AI Workflows with Databricks Unity Catalog & Mosaic AI Vector Search](https://youtu.be/zfg-ZJ3t5Ck?si=eBvzEHIPPXF4CJn7)
 
 ## Setup
 ### Pre-req
