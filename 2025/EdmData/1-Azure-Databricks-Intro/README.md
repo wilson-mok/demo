@@ -1,18 +1,18 @@
 # Azure Databricks - Getting Started
 
-The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo includes:
+The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo include:
 
 – Introduction to Azure Databricks
 – Core Technologies Overview
 – Creating well-annotated metadata for your data assets
 – Explore Your Data using AI/BI Genie
 
-After this session, you will be able describe what Databricks is, understand how different teams use it, and even try out natural language querying with built-in AI tools like Genie.
+After this session, you will be able to describe what Azure Databricks can do for your analytics needs, understand how different teams can work together in one platform, and even try out natural language querying with built-in AI tools like Genie.
 
 ## Presentation & Video
 
 * Presentation: [Azure Databricks - Getting Started PDF](./Azure%20Databricks%20-%20Getting%20Started.pdf)
-* Recording: TBD
+* Recording: https://youtu.be/cQFIxXQV3aU
 
 ## Setup
 
@@ -24,12 +24,12 @@ For this demo, we require:
 
 ## Code and scripts
 
-Databricks do not have the ability the export Genie, so the code will not be available.
+Databricks does not have the ability to export Genie, so the code will not be available. Please watch the video recording to create your own Genie. 
 
 | Src filename | Description |
 | --- | --- |
 | [avg_profit_q1_2024.sql](./src/avg_profit_q1_2024.sql) | The SQL script to analysis the average profit in Q1 2024. |
-| [profit_by_month_q1_20224.sql](./src/profit_by_month_q1_2024.sql) | The SQL script to analysis the profit by month in Q1 2024. For the visualization, please use the video recording as a follow along. |
+| [profit_by_month_q1_20224.sql](./src/profit_by_month_q1_2024.sql) | The SQL script to analysis the profit by month in Q1 2024. For the visualization, use the video recording as a follow-along. |
 
 | Data Folder/file | Description |
 | --- | --- |
