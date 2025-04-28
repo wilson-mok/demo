@@ -1,6 +1,6 @@
 # Azure Databricks - Getting Started
 
-The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo includes:
+The purpose of this article is to provide the setup instructions for the recorded demo. The presentation and demo include:
 
 – Introduction to Azure Databricks
 – Core Technologies Overview
@@ -12,7 +12,7 @@ After this session, you will be able describe what Databricks is, understand how
 ## Presentation & Video
 
 * Presentation: [Azure Databricks - Getting Started PDF](./Azure%20Databricks%20-%20Getting%20Started.pdf)
-* Recording: TBD
+* Recording: https://youtu.be/cQFIxXQV3aU
 
 ## Setup
 
@@ -24,7 +24,7 @@ For this demo, we require:
 
 ## Code and scripts
 
-Databricks do not have the ability the export Genie, so the code will not be available.
+Databricks does not have the ability to export Genie, so the code will not be available. Please follow along using the video recording. 
 
 | Src filename | Description |
 | --- | --- |
