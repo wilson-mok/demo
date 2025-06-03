@@ -11,7 +11,7 @@ After this session, you will be able to customize and optimize your own data com
 ## Presentation & Video
 
 * Presentation: [Azure Databricks - Democratizing Data using AI/BI Genie PDF](./Azure%20Databricks%20-%20Democratizing%20Data%20with%20AIBI%20Genie.pdf)
-* Recording: TBD
+* Recording: https://youtu.be/6c-U4O1dwKo
 
 ## Setup
 
