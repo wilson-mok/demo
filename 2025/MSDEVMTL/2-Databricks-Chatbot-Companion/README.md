@@ -10,7 +10,7 @@ The purpose of this article is to provide the setup instructions for the recorde
 After this session, you will be able to customize and optimize your own data companion. 
 
 ## Presentation & Video
-* Presentation: TBD
+* Presentation: [Azure Databricks - Building a Chatbot Companion with AI/BI Genie](Azure%20Databricks%20-%20Building%20a%20Chatbot%20Companion%20with%20AIBI%20Genie.pdf)
 
 ## Setup
 ### Pre-req
