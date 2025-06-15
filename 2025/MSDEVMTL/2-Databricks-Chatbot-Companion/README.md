@@ -216,7 +216,7 @@ To run the Streamlit Genie app:
                 rank <= 5
             ORDER BY
                 rank
-        ```
+            ```
 
     * Number of Reviews in the last 12 months
         * Question 1: Show me the monthly number of reviews for the past 12 months. Show me the year, month and review count
@@ -241,6 +241,7 @@ To run the Streamlit Genie app:
                 YEAR(`review_date`),
                 MONTH(`review_date`)
             ```
+            
     * Top 5 Businesses with Most Reviews 
         * Question 1: What are the top 5 most-reviewed businesses?
         * Question 2: Show me the top 5 businesses with the most customer reviews.
