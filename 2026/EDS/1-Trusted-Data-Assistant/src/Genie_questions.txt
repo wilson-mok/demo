@@ -1,0 +1,14 @@
+1. Tell me about the data
+2. What kind of questions can i ask you?
+3. What are the top businesses in Edmonton Alberta?
+4. What is the definition of "Top businesses"?
+5. What are the businesses in Edmonton AB with at least 4.7 average star rating?
+ > Include the review count
+ > I only want the top 5 records sorted by highest stars and highest review_count
+6. Give me the newest 5 reviews for businesses in Edmonton?
+ > Can you include the business name?
+7. For "University of Alberta Hospital", can you give me the last 10 reviews and the review stars? 
+ > Can you summarize the review text? 
+ > Create a line graph using review_date and stars
+ > Can you show it on a map?
+ > Can you display the lat and long on a map?
