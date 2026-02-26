@@ -23,8 +23,7 @@ All the scripts can be found under the [src directory](src/).
 | --- | --- |
 | 1_Setup.py | This script setup the required catalog, schema, and volume. |
 | 2_Bronze_Table.py | Prior running this script, please copy the Yelp JSON files to the raw_data Volume. This script create the Bronze Tables using the JSON data. |
-
-| 3_Silver_Table.py | Extract key information out of Bronze Table. This data is ready for Genie - Data Assistant. |
+| 3_Silver_Table.py | Extract key information out of Bronze Tables to create datasets that is ready for Genie - Data Assistant. |
 | 4_Metadata_and_Relationships.sql | Create the Metadata required for the Silver tables. |
 | 5_Genie_setup.md | Instructions for creating a refined Genie. |
 | Genie_questions.txt | Questions used to for the Genie demo. |
