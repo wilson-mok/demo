@@ -1,0 +1,503 @@
+{
+  "datasets": [
+    {
+      "name": "edmonton_yelp",
+      "displayName": "Edmonton Yelp Reviews",
+      "config": {
+        "source": "demo_catalog.demo_yelp_academic.ss_zz_gold_fact_review",
+        "measures": [
+          {
+            "name": "total_reviews",
+            "expr": "COUNT(1)",
+            "displayName": "Total Reviews"
+          },
+          {
+            "name": "avg_stars",
+            "expr": "AVG(stars)",
+            "displayName": "Avg Stars",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 2.0
+              }
+            }
+          },
+          {
+            "name": "total_useful_votes",
+            "expr": "SUM(review_useful_votes)",
+            "displayName": "Total Useful Votes"
+          },
+          {
+            "name": "total_funny_votes",
+            "expr": "SUM(review_funny_votes)",
+            "displayName": "Total Funny Votes"
+          },
+          {
+            "name": "total_cool_votes",
+            "expr": "SUM(review_cool_votes)",
+            "displayName": "Total Cool Votes"
+          },
+          {
+            "name": "five_star_reviews",
+            "expr": "COUNT(1) FILTER (WHERE stars = 5.0)",
+            "displayName": "5-Star Reviews"
+          },
+          {
+            "name": "one_star_reviews",
+            "expr": "COUNT(1) FILTER (WHERE stars = 1.0)",
+            "displayName": "1-Star Reviews"
+          },
+          {
+            "name": "five_star_pct",
+            "expr": "MEASURE(five_star_reviews) * 100.0 / MEASURE(total_reviews)",
+            "displayName": "5-Star %",
+            "format": {
+              "type": "percentage",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          }
+        ],
+        "filter": "business.city = 'Edmonton'",
+        "version": "1.1",
+        "comment": "Edmonton Yelp business review metrics",
+        "dimensions": [
+          {
+            "name": "review_date",
+            "expr": "date_dim.date_actual",
+            "displayName": "Review Date"
+          },
+          {
+            "name": "year",
+            "expr": "date_dim.year",
+            "displayName": "Year"
+          },
+          {
+            "name": "month",
+            "expr": "date_dim.month",
+            "displayName": "Month"
+          },
+          {
+            "name": "month_name",
+            "expr": "date_dim.month_name",
+            "displayName": "Month Name"
+          },
+          {
+            "name": "business_name",
+            "expr": "business.name",
+            "displayName": "Business Name"
+          },
+          {
+            "name": "categories",
+            "expr": "business.categories",
+            "displayName": "Categories"
+          },
+          {
+            "name": "is_open",
+            "expr": "business.is_open",
+            "displayName": "Is Open"
+          },
+          {
+            "name": "star_rating",
+            "expr": "stars",
+            "displayName": "Star Rating"
+          }
+        ],
+        "joins": [
+          {
+            "name": "business",
+            "source": "demo_catalog.demo_yelp_academic.ss_zz_gold_dim_business",
+            "on": "source.SK_business_id = business.SK_business_id"
+          },
+          {
+            "name": "date_dim",
+            "source": "demo_catalog.demo_yelp_academic.ss_zz_gold_dim_date",
+            "on": "source.SK_date_id = date_dim.SK_date_id"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "2b77cb19",
+      "displayName": "Sample",
+      "layout": [
+        {
+          "widget": {
+            "name": "total_reviews_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "measure(total_reviews)",
+                      "expression": "MEASURE(`total_reviews`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Reviews",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(total_reviews)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_stars_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "measure(avg_stars)",
+                      "expression": "MEASURE(`avg_stars`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Average Stars",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(avg_stars)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 4,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "five_star_pct_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "measure(five_star_pct)",
+                      "expression": "MEASURE(`five_star_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "5-Star Reviews %",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(five_star_pct)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 4,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "reviews_over_time",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "measure(total_reviews)",
+                      "expression": "MEASURE(`total_reviews`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Reviews Over Time",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(total_reviews)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "top_businesses",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "measure(total_reviews)",
+                      "expression": "MEASURE(`total_reviews`)"
+                    },
+                    {
+                      "name": "business_name",
+                      "expression": "`business_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 Businesses by Reviews",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(total_reviews)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "business_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "star_distribution",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "star_rating",
+                      "expression": "`star_rating`"
+                    },
+                    {
+                      "name": "measure(total_reviews)",
+                      "expression": "MEASURE(`total_reviews`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Review Distribution by Stars",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "star_rating",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(total_reviews)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 12,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "business_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "edmonton_yelp",
+                  "fields": [
+                    {
+                      "name": "business_name",
+                      "expression": "`business_name`"
+                    },
+                    {
+                      "name": "categories",
+                      "expression": "`categories`"
+                    },
+                    {
+                      "name": "measure(total_reviews)",
+                      "expression": "MEASURE(`total_reviews`)"
+                    },
+                    {
+                      "name": "measure(avg_stars)",
+                      "expression": "MEASURE(`avg_stars`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Business Details",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "business_name"
+                  },
+                  {
+                    "fieldName": "categories"
+                  },
+                  {
+                    "fieldName": "measure(total_reviews)"
+                  },
+                  {
+                    "fieldName": "measure(avg_stars)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 17,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "02a66b5a",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Sample Yelp Dashboard\n",
+                "\n",
+                "Explore customer reviews and ratings for Edmonton businesses. This dashboard provides insights into review trends, star distributions, and top-performing local establishments using Yelp's public dataset.\n",
+                "<p>&nbsp;</p>\n",
+                "\n",
+                "![](https://business.yelp.com/wp-content/themes/yelp-b2b/assets/branding/yelp-data-logo.svg)\n",
+                "\n",
+                "[Yelp Open Dataset](https://business.yelp.com/data/resources/open-dataset/)"
+              ]
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#FFFFFF"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 4
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
