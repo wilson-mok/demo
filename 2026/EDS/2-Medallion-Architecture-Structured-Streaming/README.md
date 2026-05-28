@@ -10,7 +10,7 @@ The purpose of this article is to provide the setup instructions for the demo/pr
 After this session, you will be able to utilize Databricks (Free Edition) to create your own data pipelines
 
 ## Presentation & Video
-* Presentation: Azure Databricks - Medallion Architecture with Structured Streaming
+* Presentation: [Azure Databricks - Medallion Architecture with Structured Streaming](./Azure%20Databricks%20-%20Medallion%20Architecture%20with%20Structured%20Streaming.pdf)
 
 ## Setup
 ### Pre-req
