@@ -8,4 +8,4 @@ The purpose of this article is to provide the setup instructions for the demo/pr
 After this session, you will be able to create a Data Agent and start your journey with Ontology and Graph in Fabric.
 
 ## Presentation & Video
-* Presentation: [Global Fabric Day - Data Agent and Ontology PDF](.)
+* Presentation: [Global Fabric Day - Data Agent and Ontology PDF](./Global%20Fabric%20Day%20-%20Data%20Agent%20and%20Ontology.pdf)
